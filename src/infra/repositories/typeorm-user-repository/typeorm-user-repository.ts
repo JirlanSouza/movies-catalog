@@ -1,24 +1,85 @@
+import { InjectRepository } from '@nestjs/typeorm';
 import { Id } from 'src/domain/core/Id';
 import { User } from 'src/domain/entities/User';
 import { UserRepository } from 'src/domain/repositories/UserRepository';
+import { UserModel } from 'src/infra/models/user-model';
+import { Repository } from 'typeorm';
 
 export class TypeormUserRepository implements UserRepository {
-  getByEmail(email: string): Promise<User> {
-    throw new Error('Method not implemented.');
+  constructor(
+    @InjectRepository(UserModel)
+    private readonly userModelRepository: Repository<UserModel>,
+  ) {}
+
+  async getByEmail(email: string): Promise<User | undefined> {
+    const userModel = await this.userModelRepository.findOneBy({ email });
+
+    if (userModel) {
+      return this.userModelToUserEntity(userModel);
+    }
   }
-  save(entity: User): Promise<User> {
-    throw new Error('Method not implemented.');
+
+  async save(user: User): Promise<User> {
+    const userModel = this.userEntityToUserModel(user);
+
+    await userModel.save();
+    return user;
   }
-  update(id: Id, entity: User): Promise<User> {
-    throw new Error('Method not implemented.');
+
+  async update(id: Id, user: User): Promise<User> {
+    const userModel = this.userEntityToUserModel(user);
+
+    await userModel.save();
+    return user;
   }
-  getById(id: Id): Promise<User> {
-    throw new Error('Method not implemented.');
+
+  async getById(id: Id): Promise<User> {
+    const userModel = await this.userModelRepository.findOneBy({
+      id: id.value,
+    });
+
+    if (userModel) {
+      return this.userModelToUserEntity(userModel);
+    }
   }
-  getAll(): Promise<User[]> {
-    throw new Error('Method not implemented.');
+
+  async getAll(): Promise<User[]> {
+    const usersModels = await this.userModelRepository.find();
+    const users: User[] = [];
+    for (const userModel of usersModels) {
+      users.push(this.userModelToUserEntity(userModel));
+    }
+
+    return users;
   }
-  delete(id: Id): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: Id): Promise<void> {
+    const deletedUserModelResult = await this.userModelRepository.delete({
+      id: id.value,
+    });
+
+    // if (deletedUserModelResult.affected) {
+    //   return true;
+    // }
+
+    // return false;
+  }
+
+  private userEntityToUserModel(user: User) {
+    const userModel = new UserModel();
+    userModel.id = user.id.value;
+    userModel.name = user.name;
+    userModel.email = user.email;
+    userModel.password = user.password;
+
+    return userModel;
+  }
+
+  private userModelToUserEntity(userModel: UserModel) {
+    return new User(
+      userModel.name,
+      userModel.email,
+      userModel.password,
+      userModel.id,
+    );
   }
 }

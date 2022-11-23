@@ -4,6 +4,10 @@ import { UseCasesProxyModule } from './infra/use-cases-proxy/use-cases-proxy.mod
 import { BcryptHasherModule } from './infra/adapters/bcrypt-hasher/bcrypt-hasher.module';
 import { RepositoriesModule } from './infra/repositories/repositories.module';
 import { ControllersModule } from './infra/controllers/controllers.module';
+import { TypeormModule } from './infra/config/typeorm/typeorm.module';
+import { ModelsModule } from './infra/models/models.module';
+import { EnviromentModule } from './infra/config/enviroment/enviroment.module';
+import { EnviromentVariables } from './infra/config/enviroment/enviroment-variables';
 
 @Module({
   imports: [
@@ -11,7 +15,10 @@ import { ControllersModule } from './infra/controllers/controllers.module';
     BcryptHasherModule,
     RepositoriesModule,
     ControllersModule,
+    TypeormModule,
+    ModelsModule,
+    EnviromentModule,
   ],
-  providers: [],
+  providers: [EnviromentVariables],
 })
 export class AppModule {}
