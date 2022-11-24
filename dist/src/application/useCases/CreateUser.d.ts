@@ -1,6 +1,7 @@
 import { Id } from 'src/domain/core/Id';
 import { UserRepository } from 'src/domain/repositories/UserRepository';
 import { HasherAdapter } from '../adapters/hasherAdapter';
+import { ApplicationLogger } from '../logger/logger';
 export interface CreateUserDto {
     name: string;
     email: string;
@@ -9,6 +10,7 @@ export interface CreateUserDto {
 export declare class CreateUserUseCase {
     private readonly userRepository;
     private readonly hasher;
-    constructor(userRepository: UserRepository, hasher: HasherAdapter);
+    private readonly logger;
+    constructor(userRepository: UserRepository, hasher: HasherAdapter, logger: ApplicationLogger);
     execute(input: CreateUserDto): Promise<Id>;
 }

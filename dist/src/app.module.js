@@ -16,6 +16,8 @@ const typeorm_module_1 = require("./infra/config/typeorm/typeorm.module");
 const models_module_1 = require("./infra/models/models.module");
 const enviroment_module_1 = require("./infra/config/enviroment/enviroment.module");
 const enviroment_variables_1 = require("./infra/config/enviroment/enviroment-variables");
+const logger_service_1 = require("./infra/logger/logger.service");
+const logger_module_1 = require("./infra/logger/logger.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -28,8 +30,9 @@ AppModule = __decorate([
             typeorm_module_1.TypeormModule,
             models_module_1.ModelsModule,
             enviroment_module_1.EnviromentModule,
+            logger_module_1.LoggerModule,
         ],
-        providers: [enviroment_variables_1.EnviromentVariables],
+        providers: [enviroment_variables_1.EnviromentVariables, logger_service_1.LoggerService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

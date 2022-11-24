@@ -8,6 +8,8 @@ import { TypeormModule } from './infra/config/typeorm/typeorm.module';
 import { ModelsModule } from './infra/models/models.module';
 import { EnviromentModule } from './infra/config/enviroment/enviroment.module';
 import { EnviromentVariables } from './infra/config/enviroment/enviroment-variables';
+import { LoggerService } from './infra/logger/logger.service';
+import { LoggerModule } from './infra/logger/logger.module';
 
 @Module({
   imports: [
@@ -18,7 +20,8 @@ import { EnviromentVariables } from './infra/config/enviroment/enviroment-variab
     TypeormModule,
     ModelsModule,
     EnviromentModule,
+    LoggerModule,
   ],
-  providers: [EnviromentVariables],
+  providers: [EnviromentVariables, LoggerService],
 })
 export class AppModule {}

@@ -14,8 +14,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const use_cases_proxy_module_1 = require("../../use-cases-proxy/use-cases-proxy.module");
 const useCasesProxy_1 = require("../../use-cases-proxy/useCasesProxy");
+const exceptionPresenter_1 = require("../exceptionPresenter");
+const UserDto_1 = require("./UserDto");
+const userPresenter_1 = require("./userPresenter");
 let UserController = class UserController {
     constructor(createUserUseCaseProxy) {
         this.createUserUseCaseProxy = createUserUseCaseProxy;
@@ -29,13 +33,18 @@ let UserController = class UserController {
 };
 __decorate([
     (0, common_1.Post)(),
+    (0, swagger_1.ApiResponse)({ status: 201, type: userPresenter_1.CreateUserPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: exceptionPresenter_1.ExceptionPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 409, type: exceptionPresenter_1.ExceptionPresenter }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [UserDto_1.CreateUserControllerDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "createUser", null);
 UserController = __decorate([
-    (0, common_1.Controller)('user'),
+    (0, swagger_1.ApiTags)('users'),
+    (0, swagger_1.ApiResponse)({ status: 500, type: exceptionPresenter_1.ExceptionPresenter }),
+    (0, common_1.Controller)('users'),
     __param(0, (0, common_1.Inject)(use_cases_proxy_module_1.UseCasesProxyModule.CREATE_USER_USECASE_PROXY)),
     __metadata("design:paramtypes", [useCasesProxy_1.UseCaseProxy])
 ], UserController);

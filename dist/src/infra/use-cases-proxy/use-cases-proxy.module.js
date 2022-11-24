@@ -12,6 +12,8 @@ const common_1 = require("@nestjs/common");
 const CreateUser_1 = require("../../application/useCases/CreateUser");
 const bcrypt_hasher_module_1 = require("../adapters/bcrypt-hasher/bcrypt-hasher.module");
 const bcrypt_hasher_service_1 = require("../adapters/bcrypt-hasher/bcrypt-hasher.service");
+const logger_module_1 = require("../logger/logger.module");
+const logger_service_1 = require("../logger/logger.service");
 const repositories_module_1 = require("../repositories/repositories.module");
 const typeorm_user_repository_1 = require("../repositories/typeorm-user-repository/typeorm-user-repository");
 const useCasesProxy_1 = require("./useCasesProxy");
@@ -21,9 +23,9 @@ let UseCasesProxyModule = UseCasesProxyModule_1 = class UseCasesProxyModule {
             module: UseCasesProxyModule_1,
             providers: [
                 {
-                    inject: [typeorm_user_repository_1.TypeormUserRepository, bcrypt_hasher_service_1.BcryptHasherService],
+                    inject: [logger_service_1.LoggerService, typeorm_user_repository_1.TypeormUserRepository, bcrypt_hasher_service_1.BcryptHasherService],
                     provide: UseCasesProxyModule_1.CREATE_USER_USECASE_PROXY,
-                    useFactory: (userRepository, hasher) => new useCasesProxy_1.UseCaseProxy(new CreateUser_1.CreateUserUseCase(userRepository, hasher)),
+                    useFactory: (logger, userRepository, hasher) => new useCasesProxy_1.UseCaseProxy(new CreateUser_1.CreateUserUseCase(userRepository, hasher, logger)),
                 },
             ],
             exports: [UseCasesProxyModule_1.CREATE_USER_USECASE_PROXY],
@@ -33,7 +35,7 @@ let UseCasesProxyModule = UseCasesProxyModule_1 = class UseCasesProxyModule {
 UseCasesProxyModule.CREATE_USER_USECASE_PROXY = 'CreateUserUseCaseProxy';
 UseCasesProxyModule = UseCasesProxyModule_1 = __decorate([
     (0, common_1.Module)({
-        imports: [repositories_module_1.RepositoriesModule, bcrypt_hasher_module_1.BcryptHasherModule],
+        imports: [logger_module_1.LoggerModule, repositories_module_1.RepositoriesModule, bcrypt_hasher_module_1.BcryptHasherModule],
     })
 ], UseCasesProxyModule);
 exports.UseCasesProxyModule = UseCasesProxyModule;

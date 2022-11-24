@@ -12,7 +12,6 @@ const common_1 = require("@nestjs/common");
 const bcrypt_1 = require("bcrypt");
 let BcryptHasherService = BcryptHasherService_1 = class BcryptHasherService {
     hash(data) {
-        console.log(data, BcryptHasherService_1.rounds);
         return (0, bcrypt_1.hashSync)(data, BcryptHasherService_1.rounds);
     }
     compare(data, hash) {
