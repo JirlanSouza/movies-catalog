@@ -10,15 +10,17 @@ exports.RepositoriesModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_module_1 = require("../config/typeorm/typeorm.module");
+const movie_model_1 = require("../models/movie-model");
 const user_model_1 = require("../models/user-model");
+const typeorm_movies_reoisitory_1 = require("./typeorm-movies-reoisitory/typeorm-movies-reoisitory");
 const typeorm_user_repository_1 = require("./typeorm-user-repository/typeorm-user-repository");
 let RepositoriesModule = class RepositoriesModule {
 };
 RepositoriesModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_module_1.TypeormModule, typeorm_1.TypeOrmModule.forFeature([user_model_1.UserModel])],
-        providers: [typeorm_user_repository_1.TypeormUserRepository],
-        exports: [typeorm_user_repository_1.TypeormUserRepository],
+        imports: [typeorm_module_1.TypeormModule, typeorm_1.TypeOrmModule.forFeature([user_model_1.UserModel, movie_model_1.MovieModel])],
+        providers: [typeorm_user_repository_1.TypeormUserRepository, typeorm_movies_reoisitory_1.TypeormMoviesReoisitory],
+        exports: [typeorm_user_repository_1.TypeormUserRepository, typeorm_movies_reoisitory_1.TypeormMoviesReoisitory],
     })
 ], RepositoriesModule);
 exports.RepositoriesModule = RepositoriesModule;

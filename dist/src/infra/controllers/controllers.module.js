@@ -10,12 +10,13 @@ exports.ControllersModule = void 0;
 const common_1 = require("@nestjs/common");
 const use_cases_proxy_module_1 = require("../use-cases-proxy/use-cases-proxy.module");
 const user_controller_1 = require("./user/user.controller");
+const movies_controller_1 = require("./movie/movies.controller");
 let ControllersModule = class ControllersModule {
 };
 ControllersModule = __decorate([
     (0, common_1.Module)({
         imports: [use_cases_proxy_module_1.UseCasesProxyModule.register()],
-        controllers: [user_controller_1.UserController],
+        controllers: [user_controller_1.UserController, movies_controller_1.MoviesController],
     })
 ], ControllersModule);
 exports.ControllersModule = ControllersModule;

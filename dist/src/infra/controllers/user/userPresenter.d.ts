@@ -1,3 +1,7 @@
+import { UserWithOutPassword } from 'src/application/useCases/user/UserDto';
 export declare class CreateUserPresenter {
-    userId: string;
+    id: string;
+    name: string;
+    email: string;
+    constructor(data: UserWithOutPassword);
 }

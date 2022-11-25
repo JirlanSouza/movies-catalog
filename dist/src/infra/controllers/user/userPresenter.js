@@ -12,10 +12,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateUserPresenter = void 0;
 const swagger_1 = require("@nestjs/swagger");
 class CreateUserPresenter {
+    constructor(data) {
+        this.id = data.id.value;
+        this.name = data.name;
+        this.email = data.email;
+    }
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateUserPresenter.prototype, "userId", void 0);
+], CreateUserPresenter.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateUserPresenter.prototype, "name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateUserPresenter.prototype, "email", void 0);
 exports.CreateUserPresenter = CreateUserPresenter;
 //# sourceMappingURL=userPresenter.js.map

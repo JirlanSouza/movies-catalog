@@ -56,7 +56,9 @@ let AllExceptionFilter = class AllExceptionFilter {
     }
     logMessage(request, statusCode, exception) {
         if (statusCode === common_1.HttpStatus.INTERNAL_SERVER_ERROR) {
-            this.logger.error(`End request for ${request.path}`, `method = ${request.method} status = ${statusCode} message = ${exception.message}`);
+            this.logger.error(`End request for ${request.path}`, `method = ${request.method} status = ${statusCode} message = ${exception.message}
+        stack = ${exception.stack}
+        `);
             return;
         }
         this.logger.warn(`End request for ${request.path}`, `method = ${request.method} status = ${statusCode} message = ${exception.message}`);

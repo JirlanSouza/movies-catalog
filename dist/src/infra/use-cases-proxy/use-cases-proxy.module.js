@@ -9,12 +9,14 @@ var UseCasesProxyModule_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UseCasesProxyModule = void 0;
 const common_1 = require("@nestjs/common");
-const CreateUser_1 = require("../../application/useCases/CreateUser");
+const CreateMovie_1 = require("../../application/useCases/movie/CreateMovie");
+const CreateUser_1 = require("../../application/useCases/user/CreateUser");
 const bcrypt_hasher_module_1 = require("../adapters/bcrypt-hasher/bcrypt-hasher.module");
 const bcrypt_hasher_service_1 = require("../adapters/bcrypt-hasher/bcrypt-hasher.service");
 const logger_module_1 = require("../logger/logger.module");
 const logger_service_1 = require("../logger/logger.service");
 const repositories_module_1 = require("../repositories/repositories.module");
+const typeorm_movies_reoisitory_1 = require("../repositories/typeorm-movies-reoisitory/typeorm-movies-reoisitory");
 const typeorm_user_repository_1 = require("../repositories/typeorm-user-repository/typeorm-user-repository");
 const useCasesProxy_1 = require("./useCasesProxy");
 let UseCasesProxyModule = UseCasesProxyModule_1 = class UseCasesProxyModule {
@@ -24,15 +26,23 @@ let UseCasesProxyModule = UseCasesProxyModule_1 = class UseCasesProxyModule {
             providers: [
                 {
                     inject: [logger_service_1.LoggerService, typeorm_user_repository_1.TypeormUserRepository, bcrypt_hasher_service_1.BcryptHasherService],
-                    provide: UseCasesProxyModule_1.CREATE_USER_USECASE_PROXY,
+                    provide: UseCasesProxyModule_1.proxy.CREATE_USER_USECASE,
                     useFactory: (logger, userRepository, hasher) => new useCasesProxy_1.UseCaseProxy(new CreateUser_1.CreateUserUseCase(userRepository, hasher, logger)),
                 },
+                {
+                    inject: [logger_service_1.LoggerService, typeorm_movies_reoisitory_1.TypeormMoviesReoisitory],
+                    provide: UseCasesProxyModule_1.proxy.CREATE_MOVIE_USECASE,
+                    useFactory: (logger, moviesRepository) => new useCasesProxy_1.UseCaseProxy(new CreateMovie_1.CreateMovieUseCase(moviesRepository, logger)),
+                },
             ],
-            exports: [UseCasesProxyModule_1.CREATE_USER_USECASE_PROXY],
+            exports: Object.values(UseCasesProxyModule_1.proxy),
         };
     }
 };
-UseCasesProxyModule.CREATE_USER_USECASE_PROXY = 'CreateUserUseCaseProxy';
+UseCasesProxyModule.proxy = {
+    CREATE_USER_USECASE: 'CreateUserUseCaseProxy',
+    CREATE_MOVIE_USECASE: 'CreateMovieUseCaseProxy',
+};
 UseCasesProxyModule = UseCasesProxyModule_1 = __decorate([
     (0, common_1.Module)({
         imports: [logger_module_1.LoggerModule, repositories_module_1.RepositoriesModule, bcrypt_hasher_module_1.BcryptHasherModule],
