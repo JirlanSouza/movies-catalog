@@ -14,7 +14,7 @@ class Id {
         if ((0, uuid_1.validate)(idValue)) {
             return new Id(idValue);
         }
-        throw new InvalidCreateEntityARgument_1.InvalidCreateEntityArgumentExeption('Invalid entity id ');
+        throw new InvalidCreateEntityARgument_1.InvalidCreateEntityArgumentExeption('Invalid id ');
     }
 }
 exports.Id = Id;

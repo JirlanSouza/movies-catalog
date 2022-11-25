@@ -10,6 +10,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UseCasesProxyModule = void 0;
 const common_1 = require("@nestjs/common");
 const CreateMovie_1 = require("../../application/useCases/movie/CreateMovie");
+const getManyMovies_1 = require("../../application/useCases/movie/getManyMovies");
+const getMovie_1 = require("../../application/useCases/movie/getMovie");
 const CreateUser_1 = require("../../application/useCases/user/CreateUser");
 const bcrypt_hasher_module_1 = require("../adapters/bcrypt-hasher/bcrypt-hasher.module");
 const bcrypt_hasher_service_1 = require("../adapters/bcrypt-hasher/bcrypt-hasher.service");
@@ -34,6 +36,16 @@ let UseCasesProxyModule = UseCasesProxyModule_1 = class UseCasesProxyModule {
                     provide: UseCasesProxyModule_1.proxy.CREATE_MOVIE_USECASE,
                     useFactory: (logger, moviesRepository) => new useCasesProxy_1.UseCaseProxy(new CreateMovie_1.CreateMovieUseCase(moviesRepository, logger)),
                 },
+                {
+                    inject: [typeorm_movies_reoisitory_1.TypeormMoviesReoisitory],
+                    provide: UseCasesProxyModule_1.proxy.GET_MANY_MOVIES_USECASE,
+                    useFactory: (moviesRepository) => new useCasesProxy_1.UseCaseProxy(new getManyMovies_1.GetManyMoviesUseCase(moviesRepository)),
+                },
+                {
+                    inject: [typeorm_movies_reoisitory_1.TypeormMoviesReoisitory],
+                    provide: UseCasesProxyModule_1.proxy.GET_MOVIE_USECASE,
+                    useFactory: (moviesRepository) => new useCasesProxy_1.UseCaseProxy(new getMovie_1.GetMovieUseCase(moviesRepository)),
+                },
             ],
             exports: Object.values(UseCasesProxyModule_1.proxy),
         };
@@ -42,6 +54,8 @@ let UseCasesProxyModule = UseCasesProxyModule_1 = class UseCasesProxyModule {
 UseCasesProxyModule.proxy = {
     CREATE_USER_USECASE: 'CreateUserUseCaseProxy',
     CREATE_MOVIE_USECASE: 'CreateMovieUseCaseProxy',
+    GET_MANY_MOVIES_USECASE: 'GetManyMoviesUseCaseProxy',
+    GET_MOVIE_USECASE: 'GetMovieUseCaseProxy',
 };
 UseCasesProxyModule = UseCasesProxyModule_1 = __decorate([
     (0, common_1.Module)({
