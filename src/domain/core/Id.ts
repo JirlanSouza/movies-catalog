@@ -13,6 +13,6 @@ export class Id {
       return new Id(idValue);
     }
 
-    throw new InvalidCreateEntityArgumentExeption('Invalid entity id ');
+    throw new InvalidCreateEntityArgumentExeption('Invalid id ');
   }
 }
