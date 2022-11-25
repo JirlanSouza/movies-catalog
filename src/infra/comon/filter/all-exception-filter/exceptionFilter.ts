@@ -68,7 +68,9 @@ export class AllExceptionFilter implements ExceptionFilter {
     if (statusCode === HttpStatus.INTERNAL_SERVER_ERROR) {
       this.logger.error(
         `End request for ${request.path}`,
-        `method = ${request.method} status = ${statusCode} message = ${exception.message}`,
+        `method = ${request.method} status = ${statusCode} message = ${exception.message}
+        stack = ${exception.stack}
+        `,
       );
 
       return;
