@@ -1,5 +1,6 @@
 import {
   ArgumentsHost,
+  BadRequestException,
   Catch,
   ExceptionFilter,
   HttpStatus,
@@ -27,8 +28,10 @@ export class AllExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const resquest = ctx.getRequest();
     const response = ctx.getResponse();
+    console.log(exception);
 
     const { statusCode, message } = this.mapExceptionDataByInstance(exception)
+      .forExpection(BadRequestException, HttpStatus.BAD_REQUEST)
       .forExpection(InvalidCreateEntityArgumentExeption, HttpStatus.BAD_REQUEST)
       .forExpection(NotFoundEntityExeption, HttpStatus.NOT_FOUND)
       .forExpection(AlreadyExistExeption, HttpStatus.CONFLICT).exceptionData;
@@ -52,7 +55,10 @@ export class AllExceptionFilter implements ExceptionFilter {
 
     const forExpection = (exptionClass: any, statusCode: HttpStatus) => {
       if (exception instanceof exptionClass) {
-        exceptionData = { statusCode, message: exception.message };
+        exceptionData = {
+          statusCode,
+          message: exception.response.message ?? exception.message,
+        };
       }
 
       return this.mapExceptionDataByInstance(exception, exceptionData);

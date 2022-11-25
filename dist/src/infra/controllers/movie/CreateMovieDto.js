@@ -11,38 +11,55 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateMovieControllerDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
+const class_validator_1 = require("class-validator");
 class CreateMovieControllerDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateMovieControllerDto.prototype, "title", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateMovieControllerDto.prototype, "genre", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateMovieControllerDto.prototype, "overview", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateMovieControllerDto.prototype, "company", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
+    (0, class_validator_1.IsDateString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Date)
 ], CreateMovieControllerDto.prototype, "releseDate", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateMovieControllerDto.prototype, "votesAvg", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateMovieControllerDto.prototype, "votesCount", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsUrl)(),
     __metadata("design:type", String)
 ], CreateMovieControllerDto.prototype, "runtimeUrl", void 0);
 exports.CreateMovieControllerDto = CreateMovieControllerDto;

@@ -35,6 +35,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 201, type: moviePresenter_1.MoviePresenter }),
     (0, swagger_1.ApiResponse)({ status: 400, type: exceptionPresenter_1.ExceptionPresenter }),
     (0, swagger_1.ApiResponse)({ status: 409, type: exceptionPresenter_1.ExceptionPresenter }),
+    (0, swagger_1.ApiOperation)({ description: 'Create new movie' }),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

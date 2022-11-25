@@ -25,7 +25,9 @@ let AllExceptionFilter = class AllExceptionFilter {
         const ctx = host.switchToHttp();
         const resquest = ctx.getRequest();
         const response = ctx.getResponse();
+        console.log(exception);
         const { statusCode, message } = this.mapExceptionDataByInstance(exception)
+            .forExpection(common_1.BadRequestException, common_1.HttpStatus.BAD_REQUEST)
             .forExpection(InvalidCreateEntityARgument_1.InvalidCreateEntityArgumentExeption, common_1.HttpStatus.BAD_REQUEST)
             .forExpection(NotFoundEntity_1.NotFoundEntityExeption, common_1.HttpStatus.NOT_FOUND)
             .forExpection(alreadyExist_1.AlreadyExistExeption, common_1.HttpStatus.CONFLICT).exceptionData;
@@ -44,8 +46,12 @@ let AllExceptionFilter = class AllExceptionFilter {
             message: 'Internal server error',
         };
         const forExpection = (exptionClass, statusCode) => {
+            var _a;
             if (exception instanceof exptionClass) {
-                exceptionData = { statusCode, message: exception.message };
+                exceptionData = {
+                    statusCode,
+                    message: (_a = exception.response.message) !== null && _a !== void 0 ? _a : exception.message,
+                };
             }
             return this.mapExceptionDataByInstance(exception, exceptionData);
         };

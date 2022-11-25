@@ -1,5 +1,5 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserUseCase } from 'src/application/useCases/user/CreateUser';
 import { UseCasesProxyModule } from 'src/infra/use-cases-proxy/use-cases-proxy.module';
 import { UseCaseProxy } from 'src/infra/use-cases-proxy/useCasesProxy';
@@ -16,10 +16,11 @@ export class UserController {
     private readonly createUserUseCaseProxy: UseCaseProxy<CreateUserUseCase>,
   ) {}
 
-  @Post()
   @ApiResponse({ status: 201, type: CreateUserPresenter })
   @ApiResponse({ status: 400, type: ExceptionPresenter })
   @ApiResponse({ status: 409, type: ExceptionPresenter })
+  @ApiOperation({ description: 'Create new user' })
+  @Post()
   async createUser(@Body() createUserDto: CreateUserControllerDto) {
     const createUserResult = await this.createUserUseCaseProxy
       .getInstance()

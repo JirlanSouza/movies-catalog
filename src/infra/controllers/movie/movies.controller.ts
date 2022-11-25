@@ -1,5 +1,5 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateMovieUseCase } from 'src/application/useCases/movie/CreateMovie';
 import { UseCasesProxyModule } from 'src/infra/use-cases-proxy/use-cases-proxy.module';
 import { UseCaseProxy } from 'src/infra/use-cases-proxy/useCasesProxy';
@@ -19,6 +19,7 @@ export class MoviesController {
   @ApiResponse({ status: 201, type: MoviePresenter })
   @ApiResponse({ status: 400, type: ExceptionPresenter })
   @ApiResponse({ status: 409, type: ExceptionPresenter })
+  @ApiOperation({ description: 'Create new movie' })
   @Post()
   async create(
     @Body() createMovieDto: CreateMovieControllerDto,
