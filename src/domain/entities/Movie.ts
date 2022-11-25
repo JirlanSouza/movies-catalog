@@ -16,7 +16,7 @@ export class Movie extends Entity {
       genre: string;
       overview: string;
       company: string;
-      releseDate: Date;
+      releseDate: Date | string | number;
       votesAvg: number;
       votesCount: number;
       runtimeUrl: string;
@@ -29,7 +29,7 @@ export class Movie extends Entity {
     this.genre = data.genre;
     this.overview = data.overview;
     this.company = data.company;
-    this.releseDate = data.releseDate;
+    this.releseDate = new Date(data.releseDate);
     this.votesAvg = data.votesAvg;
     this.votesCount = data.votesCount;
     this.runtimeUrl = data.runtimeUrl;
