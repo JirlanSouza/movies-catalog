@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Inject,
   Param,
@@ -9,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateMovieUseCase } from 'src/application/useCases/movie/CreateMovie';
+import { DeleteMovieUseCase } from 'src/application/useCases/movie/DeleteMovie';
 import { GetManyMoviesUseCase } from 'src/application/useCases/movie/getManyMovies';
 import { GetMovieUseCase } from 'src/application/useCases/movie/getMovie';
 import { UpdateMovieUseCase } from 'src/application/useCases/movie/UpdateMovie';
@@ -16,11 +18,13 @@ import { UseCasesProxyModule } from 'src/infra/use-cases-proxy/use-cases-proxy.m
 import { UseCaseProxy } from 'src/infra/use-cases-proxy/useCasesProxy';
 import { ExceptionPresenter } from '../exceptionPresenter';
 import { CreateMovieControllerDto } from './Dtos/CreateMovieDto';
-import { GetMoviesParamsDto } from './Dtos/GetMovieDto';
+import { DeleteMovieParamsDto } from './Dtos/DeleteMovieDto';
+import { GetMovieParamsDto } from './Dtos/GetMovieDto';
 import {
   UpdateMovieControllerDto,
   UpdateMovieParamsDto,
 } from './Dtos/UpdateMovieDto';
+import { DeleteMoviePresenter } from './presenters/DeleteMoviePresenter';
 import { ManyMoviesPresenter } from './presenters/ManyMoviesPresenter';
 import { MoviePresenter } from './presenters/moviePresenter';
 
@@ -37,6 +41,8 @@ export class MoviesController {
     private readonly getMovieUseCase: UseCaseProxy<GetMovieUseCase>,
     @Inject(UseCasesProxyModule.proxy.UPDATE_MOVIE_USECASE)
     private readonly updateMovieUseCase: UseCaseProxy<UpdateMovieUseCase>,
+    @Inject(UseCasesProxyModule.proxy.DELETE_MOVIE_USECASE)
+    private readonly deleteMovieUseCase: UseCaseProxy<DeleteMovieUseCase>,
   ) {}
 
   @ApiResponse({ status: 201, type: MoviePresenter })
@@ -69,7 +75,7 @@ export class MoviesController {
   @ApiResponse({ status: 404, type: ExceptionPresenter })
   @ApiOperation({ description: 'Get movie' })
   @Get(':id')
-  async getMovie(@Param() getMovieParams: GetMoviesParamsDto) {
+  async getMovie(@Param() getMovieParams: GetMovieParamsDto) {
     const getMovieResult = await this.getMovieUseCase
       .getInstance()
       .execute(getMovieParams.id);
@@ -91,5 +97,15 @@ export class MoviesController {
       .execute(updateMovieParams.id, updateMoviesDto);
 
     return new MoviePresenter(getMovieResult);
+  }
+
+  @ApiResponse({ status: 200, type: DeleteMoviePresenter })
+  @ApiResponse({ status: 404, type: ExceptionPresenter })
+  @ApiOperation({ description: 'Get movie' })
+  @Delete(':id')
+  async deleteMovie(@Param() deleteMovieParams: DeleteMovieParamsDto) {
+    await this.getMovieUseCase.getInstance().execute(deleteMovieParams.id);
+
+    return new DeleteMoviePresenter();
   }
 }

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsUUID } from 'class-validator';
 
-export class GetMovieParamsDto {
+export class DeleteMovieParamsDto {
   @ApiProperty()
   @IsUUID(4)
   id: string;

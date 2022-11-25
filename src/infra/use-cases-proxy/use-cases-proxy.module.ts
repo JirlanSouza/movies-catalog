@@ -1,5 +1,6 @@
 import { Module, DynamicModule } from '@nestjs/common';
 import { CreateMovieUseCase } from 'src/application/useCases/movie/CreateMovie';
+import { DeleteMovieUseCase } from 'src/application/useCases/movie/DeleteMovie';
 import { GetManyMoviesUseCase } from 'src/application/useCases/movie/getManyMovies';
 import { GetMovieUseCase } from 'src/application/useCases/movie/getMovie';
 import { UpdateMovieUseCase } from 'src/application/useCases/movie/UpdateMovie';
@@ -23,6 +24,7 @@ export class UseCasesProxyModule {
     GET_MANY_MOVIES_USECASE: 'GetManyMoviesUseCaseProxy',
     GET_MOVIE_USECASE: 'GetMovieUseCaseProxy',
     UPDATE_MOVIE_USECASE: 'UpdateMovieUseCaseProxy',
+    DELETE_MOVIE_USECASE: 'DeleteMovieUseCaseProxy',
   };
 
   static register(): DynamicModule {
@@ -70,6 +72,15 @@ export class UseCasesProxyModule {
             moviesRepository: TypeormMoviesReoisitory,
           ) =>
             new UseCaseProxy(new UpdateMovieUseCase(moviesRepository, logger)),
+        },
+        {
+          inject: [LoggerService, TypeormMoviesReoisitory],
+          provide: UseCasesProxyModule.proxy.DELETE_MOVIE_USECASE,
+          useFactory: (
+            logger: LoggerService,
+            moviesRepository: TypeormMoviesReoisitory,
+          ) =>
+            new UseCaseProxy(new DeleteMovieUseCase(moviesRepository, logger)),
         },
       ],
       exports: Object.values(UseCasesProxyModule.proxy),
