@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { CreateUserDto } from 'src/application/useCases/CreateUser';
+import { CreateUserDto } from 'src/application/useCases/user/CreateUser';
 
 export class CreateUserControllerDto implements CreateUserDto {
   @ApiProperty({ required: true })

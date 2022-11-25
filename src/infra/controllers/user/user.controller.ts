@@ -1,10 +1,10 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateUserUseCase } from 'src/application/useCases/CreateUser';
+import { CreateUserUseCase } from 'src/application/useCases/user/CreateUser';
 import { UseCasesProxyModule } from 'src/infra/use-cases-proxy/use-cases-proxy.module';
 import { UseCaseProxy } from 'src/infra/use-cases-proxy/useCasesProxy';
 import { ExceptionPresenter } from '../exceptionPresenter';
-import { CreateUserControllerDto } from './UserDto';
+import { CreateUserControllerDto } from './CreateUserDto';
 import { CreateUserPresenter } from './userPresenter';
 
 @ApiTags('users')
@@ -25,6 +25,6 @@ export class UserController {
       .getInstance()
       .execute(createUserDto);
 
-    return { userId: createUserResult.value };
+    return { id: createUserResult.id.value, ...createUserResult };
   }
 }

@@ -1,5 +1,5 @@
 import { Module, DynamicModule } from '@nestjs/common';
-import { CreateUserUseCase } from 'src/application/useCases/CreateUser';
+import { CreateUserUseCase } from 'src/application/useCases/user/CreateUser';
 import { BcryptHasherModule } from '../adapters/bcrypt-hasher/bcrypt-hasher.module';
 import { BcryptHasherService } from '../adapters/bcrypt-hasher/bcrypt-hasher.service';
 import { LoggerModule } from '../logger/logger.module';
