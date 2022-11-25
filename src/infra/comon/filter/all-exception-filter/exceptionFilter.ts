@@ -28,7 +28,6 @@ export class AllExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const resquest = ctx.getRequest();
     const response = ctx.getResponse();
-    console.log(exception);
 
     const { statusCode, message } = this.mapExceptionDataByInstance(exception)
       .forExpection(BadRequestException, HttpStatus.BAD_REQUEST)

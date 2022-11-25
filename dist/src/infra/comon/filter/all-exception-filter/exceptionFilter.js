@@ -25,7 +25,6 @@ let AllExceptionFilter = class AllExceptionFilter {
         const ctx = host.switchToHttp();
         const resquest = ctx.getRequest();
         const response = ctx.getResponse();
-        console.log(exception);
         const { statusCode, message } = this.mapExceptionDataByInstance(exception)
             .forExpection(common_1.BadRequestException, common_1.HttpStatus.BAD_REQUEST)
             .forExpection(InvalidCreateEntityARgument_1.InvalidCreateEntityArgumentExeption, common_1.HttpStatus.BAD_REQUEST)
