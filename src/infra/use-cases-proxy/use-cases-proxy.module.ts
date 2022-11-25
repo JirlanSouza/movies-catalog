@@ -1,10 +1,12 @@
 import { Module, DynamicModule } from '@nestjs/common';
+import { CreateMovieUseCase } from 'src/application/useCases/movie/CreateMovie';
 import { CreateUserUseCase } from 'src/application/useCases/user/CreateUser';
 import { BcryptHasherModule } from '../adapters/bcrypt-hasher/bcrypt-hasher.module';
 import { BcryptHasherService } from '../adapters/bcrypt-hasher/bcrypt-hasher.service';
 import { LoggerModule } from '../logger/logger.module';
 import { LoggerService } from '../logger/logger.service';
 import { RepositoriesModule } from '../repositories/repositories.module';
+import { TypeormMoviesReoisitory } from '../repositories/typeorm-movies-reoisitory/typeorm-movies-reoisitory';
 import { TypeormUserRepository } from '../repositories/typeorm-user-repository/typeorm-user-repository';
 import { UseCaseProxy } from './useCasesProxy';
 
@@ -12,7 +14,10 @@ import { UseCaseProxy } from './useCasesProxy';
   imports: [LoggerModule, RepositoriesModule, BcryptHasherModule],
 })
 export class UseCasesProxyModule {
-  static CREATE_USER_USECASE_PROXY = 'CreateUserUseCaseProxy';
+  static proxy = {
+    CREATE_USER_USECASE: 'CreateUserUseCaseProxy',
+    CREATE_MOVIE_USECASE: 'CreateMovieUseCaseProxy',
+  };
 
   static register(): DynamicModule {
     return {
@@ -20,7 +25,7 @@ export class UseCasesProxyModule {
       providers: [
         {
           inject: [LoggerService, TypeormUserRepository, BcryptHasherService],
-          provide: UseCasesProxyModule.CREATE_USER_USECASE_PROXY,
+          provide: UseCasesProxyModule.proxy.CREATE_USER_USECASE,
           useFactory: (
             logger: LoggerService,
             userRepository: TypeormUserRepository,
@@ -30,8 +35,17 @@ export class UseCasesProxyModule {
               new CreateUserUseCase(userRepository, hasher, logger),
             ),
         },
+        {
+          inject: [LoggerService, TypeormMoviesReoisitory],
+          provide: UseCasesProxyModule.proxy.CREATE_MOVIE_USECASE,
+          useFactory: (
+            logger: LoggerService,
+            moviesRepository: TypeormMoviesReoisitory,
+          ) =>
+            new UseCaseProxy(new CreateMovieUseCase(moviesRepository, logger)),
+        },
       ],
-      exports: [UseCasesProxyModule.CREATE_USER_USECASE_PROXY],
+      exports: Object.values(UseCasesProxyModule.proxy),
     };
   }
 }

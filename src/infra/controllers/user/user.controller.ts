@@ -12,7 +12,7 @@ import { CreateUserPresenter } from './userPresenter';
 @Controller('users')
 export class UserController {
   constructor(
-    @Inject(UseCasesProxyModule.CREATE_USER_USECASE_PROXY)
+    @Inject(UseCasesProxyModule.proxy.CREATE_USER_USECASE)
     private readonly createUserUseCaseProxy: UseCaseProxy<CreateUserUseCase>,
   ) {}
 
@@ -25,6 +25,6 @@ export class UserController {
       .getInstance()
       .execute(createUserDto);
 
-    return { id: createUserResult.id.value, ...createUserResult };
+    return new CreateUserPresenter(createUserResult);
   }
 }
