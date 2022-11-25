@@ -20,13 +20,15 @@ const useCasesProxy_1 = require("../../use-cases-proxy/useCasesProxy");
 const exceptionPresenter_1 = require("../exceptionPresenter");
 const CreateMovieDto_1 = require("./Dtos/CreateMovieDto");
 const GetMovieDto_1 = require("./Dtos/GetMovieDto");
+const UpdateMovieDto_1 = require("./Dtos/UpdateMovieDto");
 const ManyMoviesPresenter_1 = require("./presenters/ManyMoviesPresenter");
 const moviePresenter_1 = require("./presenters/moviePresenter");
 let MoviesController = class MoviesController {
-    constructor(createMovieUseCase, getManyMoviesUseCase, getMovieUseCase) {
+    constructor(createMovieUseCase, getManyMoviesUseCase, getMovieUseCase, updateMovieUseCase) {
         this.createMovieUseCase = createMovieUseCase;
         this.getManyMoviesUseCase = getManyMoviesUseCase;
         this.getMovieUseCase = getMovieUseCase;
+        this.updateMovieUseCase = updateMovieUseCase;
     }
     async create(createMovieDto) {
         const createMovieResult = await this.createMovieUseCase
@@ -44,6 +46,12 @@ let MoviesController = class MoviesController {
         const getMovieResult = await this.getMovieUseCase
             .getInstance()
             .execute(getMovieParams.id);
+        return new moviePresenter_1.MoviePresenter(getMovieResult);
+    }
+    async updateMovie(updateMovieParams, updateMoviesDto) {
+        const getMovieResult = await this.updateMovieUseCase
+            .getInstance()
+            .execute(updateMovieParams.id, updateMoviesDto);
         return new moviePresenter_1.MoviePresenter(getMovieResult);
     }
 };
@@ -76,6 +84,19 @@ __decorate([
     __metadata("design:paramtypes", [GetMovieDto_1.GetMoviesParamsDto]),
     __metadata("design:returntype", Promise)
 ], MoviesController.prototype, "getMovie", null);
+__decorate([
+    (0, swagger_1.ApiResponse)({ status: 200, type: moviePresenter_1.MoviePresenter }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: exceptionPresenter_1.ExceptionPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 404, type: exceptionPresenter_1.ExceptionPresenter }),
+    (0, swagger_1.ApiOperation)({ description: 'Update movie' }),
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Param)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [UpdateMovieDto_1.UpdateMovieParamsDto,
+        UpdateMovieDto_1.UpdateMovieControllerDto]),
+    __metadata("design:returntype", Promise)
+], MoviesController.prototype, "updateMovie", null);
 MoviesController = __decorate([
     (0, swagger_1.ApiTags)('movies'),
     (0, swagger_1.ApiResponse)({ status: 500, type: exceptionPresenter_1.ExceptionPresenter }),
@@ -83,7 +104,9 @@ MoviesController = __decorate([
     __param(0, (0, common_1.Inject)(use_cases_proxy_module_1.UseCasesProxyModule.proxy.CREATE_MOVIE_USECASE)),
     __param(1, (0, common_1.Inject)(use_cases_proxy_module_1.UseCasesProxyModule.proxy.GET_MANY_MOVIES_USECASE)),
     __param(2, (0, common_1.Inject)(use_cases_proxy_module_1.UseCasesProxyModule.proxy.GET_MOVIE_USECASE)),
+    __param(3, (0, common_1.Inject)(use_cases_proxy_module_1.UseCasesProxyModule.proxy.UPDATE_MOVIE_USECASE)),
     __metadata("design:paramtypes", [useCasesProxy_1.UseCaseProxy,
+        useCasesProxy_1.UseCaseProxy,
         useCasesProxy_1.UseCaseProxy,
         useCasesProxy_1.UseCaseProxy])
 ], MoviesController);

@@ -1,13 +1,26 @@
-import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateMovieUseCase } from 'src/application/useCases/movie/CreateMovie';
 import { GetManyMoviesUseCase } from 'src/application/useCases/movie/getManyMovies';
 import { GetMovieUseCase } from 'src/application/useCases/movie/getMovie';
+import { UpdateMovieUseCase } from 'src/application/useCases/movie/UpdateMovie';
 import { UseCasesProxyModule } from 'src/infra/use-cases-proxy/use-cases-proxy.module';
 import { UseCaseProxy } from 'src/infra/use-cases-proxy/useCasesProxy';
 import { ExceptionPresenter } from '../exceptionPresenter';
 import { CreateMovieControllerDto } from './Dtos/CreateMovieDto';
 import { GetMoviesParamsDto } from './Dtos/GetMovieDto';
+import {
+  UpdateMovieControllerDto,
+  UpdateMovieParamsDto,
+} from './Dtos/UpdateMovieDto';
 import { ManyMoviesPresenter } from './presenters/ManyMoviesPresenter';
 import { MoviePresenter } from './presenters/moviePresenter';
 
@@ -22,6 +35,8 @@ export class MoviesController {
     private readonly getManyMoviesUseCase: UseCaseProxy<GetManyMoviesUseCase>,
     @Inject(UseCasesProxyModule.proxy.GET_MOVIE_USECASE)
     private readonly getMovieUseCase: UseCaseProxy<GetMovieUseCase>,
+    @Inject(UseCasesProxyModule.proxy.UPDATE_MOVIE_USECASE)
+    private readonly updateMovieUseCase: UseCaseProxy<UpdateMovieUseCase>,
   ) {}
 
   @ApiResponse({ status: 201, type: MoviePresenter })
@@ -58,6 +73,22 @@ export class MoviesController {
     const getMovieResult = await this.getMovieUseCase
       .getInstance()
       .execute(getMovieParams.id);
+
+    return new MoviePresenter(getMovieResult);
+  }
+
+  @ApiResponse({ status: 200, type: MoviePresenter })
+  @ApiResponse({ status: 400, type: ExceptionPresenter })
+  @ApiResponse({ status: 404, type: ExceptionPresenter })
+  @ApiOperation({ description: 'Update movie' })
+  @Put(':id')
+  async updateMovie(
+    @Param() updateMovieParams: UpdateMovieParamsDto,
+    @Body() updateMoviesDto: UpdateMovieControllerDto,
+  ) {
+    const getMovieResult = await this.updateMovieUseCase
+      .getInstance()
+      .execute(updateMovieParams.id, updateMoviesDto);
 
     return new MoviePresenter(getMovieResult);
   }

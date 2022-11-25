@@ -5,6 +5,7 @@ export declare class UseCasesProxyModule {
         CREATE_MOVIE_USECASE: string;
         GET_MANY_MOVIES_USECASE: string;
         GET_MOVIE_USECASE: string;
+        UPDATE_MOVIE_USECASE: string;
     };
     static register(): DynamicModule;
 }

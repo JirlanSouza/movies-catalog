@@ -2,6 +2,7 @@ import { Module, DynamicModule } from '@nestjs/common';
 import { CreateMovieUseCase } from 'src/application/useCases/movie/CreateMovie';
 import { GetManyMoviesUseCase } from 'src/application/useCases/movie/getManyMovies';
 import { GetMovieUseCase } from 'src/application/useCases/movie/getMovie';
+import { UpdateMovieUseCase } from 'src/application/useCases/movie/UpdateMovie';
 import { CreateUserUseCase } from 'src/application/useCases/user/CreateUser';
 import { BcryptHasherModule } from '../adapters/bcrypt-hasher/bcrypt-hasher.module';
 import { BcryptHasherService } from '../adapters/bcrypt-hasher/bcrypt-hasher.service';
@@ -21,6 +22,7 @@ export class UseCasesProxyModule {
     CREATE_MOVIE_USECASE: 'CreateMovieUseCaseProxy',
     GET_MANY_MOVIES_USECASE: 'GetManyMoviesUseCaseProxy',
     GET_MOVIE_USECASE: 'GetMovieUseCaseProxy',
+    UPDATE_MOVIE_USECASE: 'UpdateMovieUseCaseProxy',
   };
 
   static register(): DynamicModule {
@@ -59,6 +61,15 @@ export class UseCasesProxyModule {
           provide: UseCasesProxyModule.proxy.GET_MOVIE_USECASE,
           useFactory: (moviesRepository: TypeormMoviesReoisitory) =>
             new UseCaseProxy(new GetMovieUseCase(moviesRepository)),
+        },
+        {
+          inject: [LoggerService, TypeormMoviesReoisitory],
+          provide: UseCasesProxyModule.proxy.UPDATE_MOVIE_USECASE,
+          useFactory: (
+            logger: LoggerService,
+            moviesRepository: TypeormMoviesReoisitory,
+          ) =>
+            new UseCaseProxy(new UpdateMovieUseCase(moviesRepository, logger)),
         },
       ],
       exports: Object.values(UseCasesProxyModule.proxy),

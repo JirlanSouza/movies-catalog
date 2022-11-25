@@ -12,6 +12,7 @@ const common_1 = require("@nestjs/common");
 const CreateMovie_1 = require("../../application/useCases/movie/CreateMovie");
 const getManyMovies_1 = require("../../application/useCases/movie/getManyMovies");
 const getMovie_1 = require("../../application/useCases/movie/getMovie");
+const UpdateMovie_1 = require("../../application/useCases/movie/UpdateMovie");
 const CreateUser_1 = require("../../application/useCases/user/CreateUser");
 const bcrypt_hasher_module_1 = require("../adapters/bcrypt-hasher/bcrypt-hasher.module");
 const bcrypt_hasher_service_1 = require("../adapters/bcrypt-hasher/bcrypt-hasher.service");
@@ -46,6 +47,11 @@ let UseCasesProxyModule = UseCasesProxyModule_1 = class UseCasesProxyModule {
                     provide: UseCasesProxyModule_1.proxy.GET_MOVIE_USECASE,
                     useFactory: (moviesRepository) => new useCasesProxy_1.UseCaseProxy(new getMovie_1.GetMovieUseCase(moviesRepository)),
                 },
+                {
+                    inject: [logger_service_1.LoggerService, typeorm_movies_reoisitory_1.TypeormMoviesReoisitory],
+                    provide: UseCasesProxyModule_1.proxy.UPDATE_MOVIE_USECASE,
+                    useFactory: (logger, moviesRepository) => new useCasesProxy_1.UseCaseProxy(new UpdateMovie_1.UpdateMovieUseCase(moviesRepository, logger)),
+                },
             ],
             exports: Object.values(UseCasesProxyModule_1.proxy),
         };
@@ -56,6 +62,7 @@ UseCasesProxyModule.proxy = {
     CREATE_MOVIE_USECASE: 'CreateMovieUseCaseProxy',
     GET_MANY_MOVIES_USECASE: 'GetManyMoviesUseCaseProxy',
     GET_MOVIE_USECASE: 'GetMovieUseCaseProxy',
+    UPDATE_MOVIE_USECASE: 'UpdateMovieUseCaseProxy',
 };
 UseCasesProxyModule = UseCasesProxyModule_1 = __decorate([
     (0, common_1.Module)({
