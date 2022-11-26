@@ -72,6 +72,7 @@ export class MoviesController {
   }
 
   @ApiResponse({ status: 200, type: MoviePresenter })
+  @ApiResponse({ status: 400, type: ExceptionPresenter })
   @ApiResponse({ status: 404, type: ExceptionPresenter })
   @ApiOperation({ description: 'Get movie' })
   @Get(':id')
@@ -100,11 +101,12 @@ export class MoviesController {
   }
 
   @ApiResponse({ status: 200, type: DeleteMoviePresenter })
+  @ApiResponse({ status: 400, type: ExceptionPresenter })
   @ApiResponse({ status: 404, type: ExceptionPresenter })
   @ApiOperation({ description: 'Get movie' })
   @Delete(':id')
   async deleteMovie(@Param() deleteMovieParams: DeleteMovieParamsDto) {
-    await this.getMovieUseCase.getInstance().execute(deleteMovieParams.id);
+    await this.deleteMovieUseCase.getInstance().execute(deleteMovieParams.id);
 
     return new DeleteMoviePresenter();
   }

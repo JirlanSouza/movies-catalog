@@ -4,7 +4,7 @@ export declare class Movie extends Entity {
     readonly genre: string;
     readonly overview: string;
     readonly company: string;
-    readonly releseDate: Date;
+    readonly releaseDate: Date;
     readonly votesAvg: number;
     readonly votesCount: number;
     readonly runtimeUrl: string;
@@ -13,7 +13,7 @@ export declare class Movie extends Entity {
         genre: string;
         overview: string;
         company: string;
-        releseDate: Date | string | number;
+        releaseDate: Date | string | number;
         votesAvg: number;
         votesCount: number;
         runtimeUrl: string;

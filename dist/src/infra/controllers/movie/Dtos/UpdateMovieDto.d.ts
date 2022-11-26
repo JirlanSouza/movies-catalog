@@ -7,7 +7,7 @@ export declare class UpdateMovieControllerDto implements UpdateMovieDto {
     genre: string;
     overview: string;
     company: string;
-    releseDate: Date;
+    releaseDate: Date;
     votesAvg: number;
     votesCount: number;
     runtimeUrl: string;

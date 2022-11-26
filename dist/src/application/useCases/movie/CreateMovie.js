@@ -13,8 +13,8 @@ class CreateMovieUseCase {
         if (existMovie) {
             throw new alreadyExist_1.AlreadyExistExeption('Movie already exist');
         }
-        const movieReleaseDate = new Date(data.releseDate);
-        const movie = new Movie_1.Movie(Object.assign(Object.assign({}, data), { releseDate: movieReleaseDate }));
+        const movieReleaseDate = new Date(data.releaseDate);
+        const movie = new Movie_1.Movie(Object.assign(Object.assign({}, data), { releaseDate: movieReleaseDate }));
         await this.moviesRepository.save(movie);
         this.logger.log('CreateMovieUseCase execute', 'The new movie has been created');
         return movie;

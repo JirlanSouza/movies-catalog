@@ -33,7 +33,7 @@ export class CreateMovieControllerDto implements CreateMovieDto {
   @ApiProperty({ required: true })
   @IsDateString()
   @IsNotEmpty()
-  releseDate: Date;
+  releaseDate: Date;
 
   @ApiProperty()
   @IsOptional()

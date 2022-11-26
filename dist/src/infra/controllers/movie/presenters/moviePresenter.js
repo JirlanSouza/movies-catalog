@@ -18,7 +18,7 @@ class MoviePresenter {
         this.genre = data.genre;
         this.overview = data.overview;
         this.company = data.company;
-        this.releseDate = data.releseDate.toLocaleString('pt-br');
+        this.releseDate = data.releaseDate.toLocaleString('pt-br');
         this.votesAvg = data.votesAvg;
         this.votesCount = data.votesCount;
         this.runtimeUrl = data.runtimeUrl;

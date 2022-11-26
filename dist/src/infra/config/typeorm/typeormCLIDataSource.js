@@ -19,7 +19,6 @@ const AppDataSource = new typeorm_1.DataSource({
 AppDataSource.initialize()
     .then(() => {
     console.log('Data Source has been initialized!');
-    console.log(AppDataSource.options);
 })
     .catch((err) => {
     console.error('Error during Data Source initialization', err);

@@ -36,7 +36,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Date)
-], MovieModel.prototype, "releseDate", void 0);
+], MovieModel.prototype, "releaseDate", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)

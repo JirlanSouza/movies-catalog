@@ -9,7 +9,7 @@ class Movie extends Entity_1.Entity {
         this.genre = data.genre;
         this.overview = data.overview;
         this.company = data.company;
-        this.releseDate = new Date(data.releseDate);
+        this.releaseDate = new Date(data.releaseDate);
         this.votesAvg = data.votesAvg;
         this.votesCount = data.votesCount;
         this.runtimeUrl = data.runtimeUrl;

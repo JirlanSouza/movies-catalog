@@ -17,7 +17,7 @@ class UpdateMovieUseCase {
         }
         const updatedMovie = new Movie_1.Movie(data, id.value);
         await this.moviesrepository.update(id, updatedMovie);
-        this.logger.log('UpdateMovieUseCase execute', `The movie with id: ${id} has been updated`);
+        this.logger.log('UpdateMovieUseCase execute', `The movie with id: ${id.value} has been updated`);
         return updatedMovie;
     }
 }

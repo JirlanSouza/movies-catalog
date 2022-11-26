@@ -1,3 +1,3 @@
-export declare class GetMoviesParamsDto {
+export declare class GetMovieParamsDto {
     id: string;
 }

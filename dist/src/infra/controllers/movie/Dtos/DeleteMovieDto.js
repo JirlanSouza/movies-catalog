@@ -9,15 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetMovieParamsDto = void 0;
+exports.DeleteMovieParamsDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
-class GetMovieParamsDto {
+class DeleteMovieParamsDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsUUID)(4),
     __metadata("design:type", String)
-], GetMovieParamsDto.prototype, "id", void 0);
-exports.GetMovieParamsDto = GetMovieParamsDto;
-//# sourceMappingURL=GetMovieDto.js.map
+], DeleteMovieParamsDto.prototype, "id", void 0);
+exports.DeleteMovieParamsDto = DeleteMovieParamsDto;
+//# sourceMappingURL=DeleteMovieDto.js.map

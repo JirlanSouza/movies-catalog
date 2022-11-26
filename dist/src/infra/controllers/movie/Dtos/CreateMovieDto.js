@@ -43,7 +43,7 @@ __decorate([
     (0, class_validator_1.IsDateString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Date)
-], CreateMovieControllerDto.prototype, "releseDate", void 0);
+], CreateMovieControllerDto.prototype, "releaseDate", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsOptional)(),

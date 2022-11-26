@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsDateString,
   IsNumber,
-  IsOptional,
+  IsNotEmpty,
   IsString,
   IsUrl,
   IsUUID,
@@ -18,41 +18,41 @@ export class UpdateMovieParamsDto {
 export class UpdateMovieControllerDto implements UpdateMovieDto {
   @ApiProperty()
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   title: string;
 
   @ApiProperty()
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   genre: string;
 
   @ApiProperty()
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   overview: string;
 
   @ApiProperty()
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   company: string;
 
   @ApiProperty()
   @IsDateString()
-  @IsOptional()
-  releseDate: Date;
+  @IsNotEmpty()
+  releaseDate: Date;
 
   @ApiProperty()
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   votesAvg: number;
 
   @ApiProperty()
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   votesCount: number;
 
   @ApiProperty()
-  @IsOptional()
+  @IsNotEmpty()
   @IsUrl()
   runtimeUrl: string;
 }

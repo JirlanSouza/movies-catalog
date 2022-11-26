@@ -10,6 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UseCasesProxyModule = void 0;
 const common_1 = require("@nestjs/common");
 const CreateMovie_1 = require("../../application/useCases/movie/CreateMovie");
+const DeleteMovie_1 = require("../../application/useCases/movie/DeleteMovie");
 const getManyMovies_1 = require("../../application/useCases/movie/getManyMovies");
 const getMovie_1 = require("../../application/useCases/movie/getMovie");
 const UpdateMovie_1 = require("../../application/useCases/movie/UpdateMovie");
@@ -52,6 +53,11 @@ let UseCasesProxyModule = UseCasesProxyModule_1 = class UseCasesProxyModule {
                     provide: UseCasesProxyModule_1.proxy.UPDATE_MOVIE_USECASE,
                     useFactory: (logger, moviesRepository) => new useCasesProxy_1.UseCaseProxy(new UpdateMovie_1.UpdateMovieUseCase(moviesRepository, logger)),
                 },
+                {
+                    inject: [logger_service_1.LoggerService, typeorm_movies_reoisitory_1.TypeormMoviesReoisitory],
+                    provide: UseCasesProxyModule_1.proxy.DELETE_MOVIE_USECASE,
+                    useFactory: (logger, moviesRepository) => new useCasesProxy_1.UseCaseProxy(new DeleteMovie_1.DeleteMovieUseCase(moviesRepository, logger)),
+                },
             ],
             exports: Object.values(UseCasesProxyModule_1.proxy),
         };
@@ -63,6 +69,7 @@ UseCasesProxyModule.proxy = {
     GET_MANY_MOVIES_USECASE: 'GetManyMoviesUseCaseProxy',
     GET_MOVIE_USECASE: 'GetMovieUseCaseProxy',
     UPDATE_MOVIE_USECASE: 'UpdateMovieUseCaseProxy',
+    DELETE_MOVIE_USECASE: 'DeleteMovieUseCaseProxy',
 };
 UseCasesProxyModule = UseCasesProxyModule_1 = __decorate([
     (0, common_1.Module)({

@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getTypeormOptions = void 0;
-console.log('database/migrations/*{.ts,.js}');
 const getTypeormOptions = (enviromentVariables) => ({
     type: 'postgres',
     host: enviromentVariables.databaseHost,

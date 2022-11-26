@@ -57,6 +57,9 @@ let TypeormUserRepository = class TypeormUserRepository {
         const deletedUserModelResult = await this.userModelRepository.delete({
             id: id.value,
         });
+        if (!deletedUserModelResult.affected) {
+            throw new Error('Error on deleting the user');
+        }
     }
     userEntityToUserModel(user) {
         const userModel = new user_model_1.UserModel();

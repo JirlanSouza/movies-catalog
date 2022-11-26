@@ -35,16 +35,29 @@ let TypeormMoviesReoisitory = class TypeormMoviesReoisitory {
         }
     }
     async update(id, entity) {
-        throw new Error('Method not implemented.');
+        const movieModel = this.movieToMovieModel(entity);
+        const savedMovieModel = await movieModel.save();
+        if (savedMovieModel) {
+            return entity;
+        }
     }
     async getById(id) {
-        throw new Error('Method not implemented.');
+        const movieModel = await this.moviesModelRepository.findOneBy({
+            id: id.value,
+        });
+        if (movieModel) {
+            return this.movieModelToMovie(movieModel);
+        }
     }
     async getAll() {
-        throw new Error('Method not implemented.');
+        const moviesModel = await this.moviesModelRepository.find();
+        return moviesModel.map((movieModel) => this.movieModelToMovie(movieModel));
     }
     async delete(id) {
-        throw new Error('Method not implemented.');
+        const deletedMovieModelResult = await this.moviesModelRepository.delete(id.value);
+        if (!deletedMovieModelResult.affected) {
+            throw new Error('Error on deleting the movie');
+        }
     }
     movieModelToMovie(movieModel) {
         return new Movie_1.Movie(Object.assign({}, movieModel), movieModel.id);
@@ -56,7 +69,7 @@ let TypeormMoviesReoisitory = class TypeormMoviesReoisitory {
         movieModel.genre = movie.genre;
         movieModel.overview = movie.overview;
         movieModel.company = movie.company;
-        movieModel.releseDate = movie.releseDate;
+        movieModel.releaseDate = movie.releaseDate;
         movieModel.votesAvg = movie.votesAvg;
         movieModel.votesCount = movie.votesCount;
         movieModel.runtimeUrl = movie.runtimeUrl;
