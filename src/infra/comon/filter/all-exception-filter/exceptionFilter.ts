@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 import { AlreadyExistExeption } from 'src/application/exceptions/alreadyExist';
+import { DoesNotExist } from 'src/application/exceptions/doesExistException';
 import { ApplicationLogger } from 'src/application/logger/logger';
 import { InvalidCreateEntityArgumentExeption } from 'src/domain/exceptions/InvalidCreateEntityARgument';
 import { NotFoundEntityExeption } from 'src/domain/exceptions/NotFoundEntity';
@@ -33,6 +34,7 @@ export class AllExceptionFilter implements ExceptionFilter {
       .forExpection(BadRequestException, HttpStatus.BAD_REQUEST)
       .forExpection(InvalidCreateEntityArgumentExeption, HttpStatus.BAD_REQUEST)
       .forExpection(NotFoundEntityExeption, HttpStatus.NOT_FOUND)
+      .forExpection(DoesNotExist, HttpStatus.NOT_FOUND)
       .forExpection(AlreadyExistExeption, HttpStatus.CONFLICT).exceptionData;
 
     const responseData = {
@@ -56,7 +58,7 @@ export class AllExceptionFilter implements ExceptionFilter {
       if (exception instanceof exptionClass) {
         exceptionData = {
           statusCode,
-          message: exception.response.message ?? exception.message,
+          message: exception?.response?.message ?? exception.message,
         };
       }
 
@@ -83,7 +85,9 @@ export class AllExceptionFilter implements ExceptionFilter {
 
     this.logger.warn(
       `End request for ${request.path}`,
-      `method = ${request.method} status = ${statusCode} message = ${exception.message}`,
+      `method = ${request.method} status = ${statusCode} message = ${
+        exception?.response?.message ?? exception.message
+      }`,
     );
   }
 }
