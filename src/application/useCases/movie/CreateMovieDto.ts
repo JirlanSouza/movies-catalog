@@ -3,7 +3,7 @@ export interface CreateMovieDto {
   genre: string;
   overview: string;
   company: string;
-  releseDate: Date | string;
+  releaseDate: Date | string;
   votesAvg: number;
   votesCount: number;
   runtimeUrl: string;

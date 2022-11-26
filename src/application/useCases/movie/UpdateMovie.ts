@@ -24,7 +24,7 @@ export class UpdateMovieUseCase {
     await this.moviesrepository.update(id, updatedMovie);
     this.logger.log(
       'UpdateMovieUseCase execute',
-      `The movie with id: ${id} has been updated`,
+      `The movie with id: ${id.value} has been updated`,
     );
     return updatedMovie;
   }

@@ -17,9 +17,9 @@ export class CreateMovieUseCase {
       throw new AlreadyExistExeption('Movie already exist');
     }
 
-    const movieReleaseDate = new Date(data.releseDate);
+    const movieReleaseDate = new Date(data.releaseDate);
 
-    const movie = new Movie({ ...data, releseDate: movieReleaseDate });
+    const movie = new Movie({ ...data, releaseDate: movieReleaseDate });
     await this.moviesRepository.save(movie);
     this.logger.log(
       'CreateMovieUseCase execute',
