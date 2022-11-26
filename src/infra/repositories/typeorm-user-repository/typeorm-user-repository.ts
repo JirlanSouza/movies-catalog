@@ -57,11 +57,9 @@ export class TypeormUserRepository implements UserRepository {
       id: id.value,
     });
 
-    // if (deletedUserModelResult.affected) {
-    //   return true;
-    // }
-
-    // return false;
+    if (!deletedUserModelResult.affected) {
+      throw new Error('Error on deleting the user');
+    }
   }
 
   private userEntityToUserModel(user: User) {

@@ -28,19 +28,38 @@ export class TypeormMoviesReoisitory implements MoviesReposiotry {
   }
 
   async update(id: Id, entity: Movie): Promise<Movie> {
-    throw new Error('Method not implemented.');
+    const movieModel = this.movieToMovieModel(entity);
+    const savedMovieModel = await movieModel.save();
+
+    if (savedMovieModel) {
+      return entity;
+    }
   }
 
   async getById(id: Id): Promise<Movie> {
-    throw new Error('Method not implemented.');
+    const movieModel = await this.moviesModelRepository.findOneBy({
+      id: id.value,
+    });
+
+    if (movieModel) {
+      return this.movieModelToMovie(movieModel);
+    }
   }
 
   async getAll(): Promise<Movie[]> {
-    throw new Error('Method not implemented.');
+    const moviesModel = await this.moviesModelRepository.find();
+
+    return moviesModel.map((movieModel) => this.movieModelToMovie(movieModel));
   }
 
   async delete(id: Id): Promise<void> {
-    throw new Error('Method not implemented.');
+    const deletedMovieModelResult = await this.moviesModelRepository.delete(
+      id.value,
+    );
+
+    if (!deletedMovieModelResult.affected) {
+      throw new Error('Error on deleting the movie');
+    }
   }
 
   private movieModelToMovie(movieModel: MovieModel) {
@@ -54,7 +73,7 @@ export class TypeormMoviesReoisitory implements MoviesReposiotry {
     movieModel.genre = movie.genre;
     movieModel.overview = movie.overview;
     movieModel.company = movie.company;
-    movieModel.releseDate = movie.releseDate;
+    movieModel.releaseDate = movie.releaseDate;
     movieModel.votesAvg = movie.votesAvg;
     movieModel.votesCount = movie.votesCount;
     movieModel.runtimeUrl = movie.runtimeUrl;

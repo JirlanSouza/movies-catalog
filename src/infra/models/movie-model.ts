@@ -18,7 +18,7 @@ export class MovieModel extends BaseEntity {
   company: string;
 
   @Column()
-  releseDate: Date;
+  releaseDate: Date;
 
   @Column()
   votesAvg: number;
