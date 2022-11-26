@@ -1,8 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { UserModel } from 'src/infra/models/user-model';
 import { EnviromentVariables } from '../enviroment/enviroment-variables';
-
-console.log('database/migrations/*{.ts,.js}');
 
 export const getTypeormOptions = (
   enviromentVariables: EnviromentVariables,
