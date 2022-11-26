@@ -15,6 +15,18 @@ services:
       - 5432
     volumes:
       - postgres:/data/postgres
+  redis-cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - ${REDIS_PORT}:6379
+    expose:
+      - ${REDIS_PORT}
+    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis-cache:/data
 volumes:
   postgres:
+    driver: local
+  redis-cache:
     driver: local

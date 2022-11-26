@@ -8,4 +8,8 @@ export declare class EnviromentVariables {
     get databasePassword(): string;
     get databaseName(): string;
     get databaseSchema(): string;
+    get redisHost(): string;
+    get redisPort(): number;
+    get redisPassword(): string;
+    get redisTtl(): number;
 }

@@ -28,4 +28,20 @@ export class EnviromentVariables {
   get databaseSchema() {
     return this.configService.get<string>('DATABASE_SCHEMA');
   }
+
+  get redisHost() {
+    return this.configService.get<string>('REDIS_HOST');
+  }
+
+  get redisPort() {
+    return this.configService.get<number>('REDIS_PORT');
+  }
+
+  get redisPassword() {
+    return this.configService.get<string>('REDIS_PASSWORD');
+  }
+
+  get redisTtl() {
+    return parseInt(this.configService.get<string>('REDIS_TTL'));
+  }
 }
