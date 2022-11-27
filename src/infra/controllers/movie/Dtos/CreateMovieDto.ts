@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsDateString,
+  IsISO8601,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -36,9 +36,9 @@ export class CreateMovieControllerDto implements CreateMovieDto {
 
   @ApiProperty({
     required: true,
-    example: new Date('1997-12-19T00:00:00.000').toLocaleDateString('pt-br'),
+    example: new Date('1997-12-19T00:00:00.000').toISOString(),
   })
-  @IsDateString()
+  @IsISO8601()
   @IsNotEmpty()
   releaseDate: Date;
 

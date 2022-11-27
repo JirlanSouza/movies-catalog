@@ -2,6 +2,7 @@ import { ConfigService } from '@nestjs/config';
 export declare class EnviromentVariables {
     private readonly configService;
     constructor(configService: ConfigService);
+    get port(): number;
     get databaseHost(): string;
     get databasePort(): number;
     get databaseUser(): string;

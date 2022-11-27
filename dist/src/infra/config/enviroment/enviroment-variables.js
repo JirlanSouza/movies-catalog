@@ -16,6 +16,9 @@ let EnviromentVariables = class EnviromentVariables {
     constructor(configService) {
         this.configService = configService;
     }
+    get port() {
+        return parseInt(this.configService.get('PORT'));
+    }
     get databaseHost() {
         return this.configService.get('DATABASE_HOST');
     }

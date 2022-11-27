@@ -9,12 +9,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EnviromentModule = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
+const env_file_1 = require("./env-file");
 const enviroment_variables_1 = require("./enviroment-variables");
+console.log(process.env.NODE_ENV);
 let EnviromentModule = class EnviromentModule {
 };
 EnviromentModule = __decorate([
     (0, common_1.Module)({
-        imports: [config_1.ConfigModule.forRoot({ isGlobal: true, cache: true })],
+        imports: [
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+                cache: true,
+                envFilePath: env_file_1.envFilePath,
+                ignoreEnvFile: env_file_1.ignoreEnvFile,
+            }),
+        ],
         providers: [enviroment_variables_1.EnviromentVariables],
         exports: [enviroment_variables_1.EnviromentVariables],
     })

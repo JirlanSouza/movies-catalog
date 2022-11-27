@@ -28,6 +28,7 @@ let AllExceptionFilter = class AllExceptionFilter {
         const resquest = ctx.getRequest();
         const response = ctx.getResponse();
         const { statusCode, message } = this.mapExceptionDataByInstance(exception)
+            .forExpection(common_1.NotFoundException, common_1.HttpStatus.NOT_FOUND)
             .forExpection(common_1.BadRequestException, common_1.HttpStatus.BAD_REQUEST)
             .forExpection(common_1.UnauthorizedException, common_1.HttpStatus.UNAUTHORIZED)
             .forExpection(IncorrectEmailOrPassword_1.IncorrectEmailOrPassword, common_1.HttpStatus.UNAUTHORIZED)

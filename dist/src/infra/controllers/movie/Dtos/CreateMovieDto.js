@@ -44,9 +44,9 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         required: true,
-        example: new Date('1997-12-19T00:00:00.000').toLocaleDateString('pt-br'),
+        example: new Date('1997-12-19T00:00:00.000').toISOString(),
     }),
-    (0, class_validator_1.IsDateString)(),
+    (0, class_validator_1.IsISO8601)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Date)
 ], CreateMovieControllerDto.prototype, "releaseDate", void 0);

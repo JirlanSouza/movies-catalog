@@ -4,6 +4,7 @@ import {
   Catch,
   ExceptionFilter,
   HttpStatus,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
@@ -33,6 +34,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse();
 
     const { statusCode, message } = this.mapExceptionDataByInstance(exception)
+      .forExpection(NotFoundException, HttpStatus.NOT_FOUND)
       .forExpection(BadRequestException, HttpStatus.BAD_REQUEST)
       .forExpection(UnauthorizedException, HttpStatus.UNAUTHORIZED)
       .forExpection(IncorrectEmailOrPassword, HttpStatus.UNAUTHORIZED)
