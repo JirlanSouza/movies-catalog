@@ -1,5 +1,5 @@
 import { v4 as uuid, validate } from 'uuid';
-import { InvalidCreateEntityArgumentExeption } from '../exceptions/InvalidCreateEntityARgument';
+import { InvalidCreateEntityArgumentExeption } from '../exceptions/InvalidCreateEntityArgument';
 
 export class Id {
   private constructor(readonly value: string) {}

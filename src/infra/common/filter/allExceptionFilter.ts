@@ -12,7 +12,7 @@ import { AlreadyExistExeption } from 'src/application/exceptions/alreadyExist';
 import { DoesNotExist } from 'src/application/exceptions/doesExistException';
 import { IncorrectEmailOrPassword } from 'src/application/exceptions/IncorrectEmailOrPassword';
 import { ApplicationLogger } from 'src/application/logger/logger';
-import { InvalidCreateEntityArgumentExeption } from 'src/domain/exceptions/InvalidCreateEntityARgument';
+import { InvalidCreateEntityArgumentExeption } from 'src/domain/exceptions/InvalidCreateEntityArgument';
 import { NotFoundEntityExeption } from 'src/domain/exceptions/NotFoundEntity';
 
 type ExceptionData = {
