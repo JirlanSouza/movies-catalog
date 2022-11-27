@@ -13,7 +13,7 @@ export const getTypeormOptions = (
   synchronize: false,
   schema: enviromentVariables.databaseSchema,
   migrationsRun: true,
-  entities: ['/src/infra/models/*{.ts,.js}'],
-  migrations: ['/database/migrations/*{.ts,.js}'],
+  entities: ['dist/src/infra/models/*{.ts,.js}'],
+  migrations: ['dist/database/migrations/*{.ts,.js}'],
   autoLoadEntities: true,
 });

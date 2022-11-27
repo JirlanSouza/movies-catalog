@@ -1,8 +1,10 @@
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { AllExceptionFilter } from './infra/common/filter/allExceptionFilter';
+import { EnviromentVariables } from './infra/config/enviroment/enviroment-variables';
 import { LoggerService } from './infra/logger/logger.service';
 
 async function bootstrap() {
@@ -24,6 +26,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3000);
+  const enviroment = app.get(EnviromentVariables);
+  const port = enviroment.port ?? 3000;
+  await app.listen(port);
 }
 bootstrap();

@@ -5,6 +5,10 @@ import { ConfigService } from '@nestjs/config';
 export class EnviromentVariables {
   constructor(private readonly configService: ConfigService) {}
 
+  get port() {
+    return parseInt(this.configService.get<string>('PORT'));
+  }
+
   get databaseHost() {
     return this.configService.get<string>('DATABASE_HOST');
   }
