@@ -15,6 +15,7 @@ Acesse a [documentação Swagger da APi por aqui](https://api-dot-movies-catalog
 > Typeorm  
 > Postgre  
 > Redis
+> Docker
 
 ## Dependêcias necessárias para executar o projeto
 
