@@ -25,8 +25,39 @@ services:
     command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
     volumes:
       - redis-cache:/data
+  api:
+    build: .
+    restart: always
+    environment:
+      - PORT=${PORT}
+      - DATABASE_HOST=database
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE=${DATABASE}
+      - DATABASE_SCHEMA=${DATABASE_SCHEMA}
+      - REDIS_HOST=redis-cache
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_TTL=${REDIS_TTL}
+      - JWT_EXPIRWS_TIME=${JWT_EXPIRWS_TIME}
+      - JWT_SECRET=${JWT_SECRET}
+    ports:
+      - ${PORT}:8080
+    expose:
+      - ${PORT}
+    volumes:
+      - api:/usr/app
+    links:
+      - database
+      - redis-cache
+    depends_on:
+      - database
+      - redis-cache
 volumes:
   postgres:
     driver: local
   redis-cache:
+    driver: local
+  api:
     driver: local
