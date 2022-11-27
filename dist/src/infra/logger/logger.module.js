@@ -18,4 +18,3 @@ LoggerModule = __decorate([
     })
 ], LoggerModule);
 exports.LoggerModule = LoggerModule;
-//# sourceMappingURL=logger.module.js.map

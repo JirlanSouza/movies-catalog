@@ -7,4 +7,3 @@ class NotFoundEntityExeption extends Error {
     }
 }
 exports.NotFoundEntityExeption = NotFoundEntityExeption;
-//# sourceMappingURL=NotFoundEntity.js.map

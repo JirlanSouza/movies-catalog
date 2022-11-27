@@ -11,4 +11,3 @@ class GetManyMoviesUseCase {
     }
 }
 exports.GetManyMoviesUseCase = GetManyMoviesUseCase;
-//# sourceMappingURL=getManyMovies.js.map

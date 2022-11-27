@@ -22,4 +22,3 @@ class UpdateMovieUseCase {
     }
 }
 exports.UpdateMovieUseCase = UpdateMovieUseCase;
-//# sourceMappingURL=UpdateMovie.js.map

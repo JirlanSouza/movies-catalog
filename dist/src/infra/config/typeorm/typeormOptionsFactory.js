@@ -16,4 +16,3 @@ const getTypeormOptions = (enviromentVariables) => ({
     autoLoadEntities: true,
 });
 exports.getTypeormOptions = getTypeormOptions;
-//# sourceMappingURL=typeormOptionsFactory.js.map

@@ -11,4 +11,3 @@ class User extends Entity_1.Entity {
     }
 }
 exports.User = User;
-//# sourceMappingURL=User.js.map

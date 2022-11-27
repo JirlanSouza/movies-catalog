@@ -24,4 +24,3 @@ AppDataSource.initialize()
     console.error('Error during Data Source initialization', err);
 });
 exports.default = AppDataSource;
-//# sourceMappingURL=typeormCLIDataSource.js.map

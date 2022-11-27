@@ -20,4 +20,3 @@ EnviromentModule = __decorate([
     })
 ], EnviromentModule);
 exports.EnviromentModule = EnviromentModule;
-//# sourceMappingURL=enviroment.module.js.map

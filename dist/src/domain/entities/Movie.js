@@ -16,4 +16,3 @@ class Movie extends Entity_1.Entity {
     }
 }
 exports.Movie = Movie;
-//# sourceMappingURL=Movie.js.map

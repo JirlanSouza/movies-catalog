@@ -26,4 +26,3 @@ TypeormModule = __decorate([
     })
 ], TypeormModule);
 exports.TypeormModule = TypeormModule;
-//# sourceMappingURL=typeorm.module.js.map

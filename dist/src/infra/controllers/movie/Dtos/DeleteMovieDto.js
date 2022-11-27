@@ -20,4 +20,3 @@ __decorate([
     __metadata("design:type", String)
 ], DeleteMovieParamsDto.prototype, "id", void 0);
 exports.DeleteMovieParamsDto = DeleteMovieParamsDto;
-//# sourceMappingURL=DeleteMovieDto.js.map

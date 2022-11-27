@@ -42,4 +42,3 @@ __decorate([
     __metadata("design:type", String)
 ], SignInPresenter.prototype, "token", void 0);
 exports.SignInPresenter = SignInPresenter;
-//# sourceMappingURL=SignInPresenter.js.map

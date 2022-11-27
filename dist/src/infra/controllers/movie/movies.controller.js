@@ -137,4 +137,3 @@ MoviesController = __decorate([
         useCasesProxy_1.UseCaseProxy])
 ], MoviesController);
 exports.MoviesController = MoviesController;
-//# sourceMappingURL=movies.controller.js.map

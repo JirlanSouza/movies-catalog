@@ -30,4 +30,3 @@ __decorate([
     __metadata("design:type", Array)
 ], ManyMoviesPresenter.prototype, "data", void 0);
 exports.ManyMoviesPresenter = ManyMoviesPresenter;
-//# sourceMappingURL=ManyMoviesPresenter.js.map

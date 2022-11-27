@@ -21,4 +21,3 @@ __decorate([
     __metadata("design:type", Object)
 ], DeleteMoviePresenter.prototype, "message", void 0);
 exports.DeleteMoviePresenter = DeleteMoviePresenter;
-//# sourceMappingURL=DeleteMoviePresenter.js.map

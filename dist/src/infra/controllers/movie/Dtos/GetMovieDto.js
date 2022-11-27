@@ -20,4 +20,3 @@ __decorate([
     __metadata("design:type", String)
 ], GetMovieParamsDto.prototype, "id", void 0);
 exports.GetMovieParamsDto = GetMovieParamsDto;
-//# sourceMappingURL=GetMovieDto.js.map

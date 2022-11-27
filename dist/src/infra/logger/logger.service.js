@@ -33,4 +33,3 @@ LoggerService = __decorate([
     (0, common_1.Injectable)()
 ], LoggerService);
 exports.LoggerService = LoggerService;
-//# sourceMappingURL=logger.service.js.map

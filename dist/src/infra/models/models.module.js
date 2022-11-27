@@ -18,4 +18,3 @@ ModelsModule = __decorate([
     })
 ], ModelsModule);
 exports.ModelsModule = ModelsModule;
-//# sourceMappingURL=models.module.js.map

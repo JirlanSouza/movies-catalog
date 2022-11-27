@@ -18,4 +18,3 @@ class Id {
     }
 }
 exports.Id = Id;
-//# sourceMappingURL=Id.js.map

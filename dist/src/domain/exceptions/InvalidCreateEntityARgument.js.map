@@ -1,1 +1,0 @@
-{"version":3,"file":"InvalidCreateEntityARgument.js","sourceRoot":"","sources":["../../../../src/domain/exceptions/InvalidCreateEntityARgument.ts"],"names":[],"mappings":";;;AAAA,MAAa,mCAAoC,SAAQ,KAAK;IAC5D,YAAY,OAAgB;QAC1B,KAAK,CAAC,OAAO,aAAP,OAAO,cAAP,OAAO,GAAI,gCAAgC,CAAC,CAAC;IACrD,CAAC;CACF;AAJD,kFAIC"}

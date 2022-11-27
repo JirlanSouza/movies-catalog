@@ -50,4 +50,3 @@ UserController = __decorate([
     __metadata("design:paramtypes", [useCasesProxy_1.UseCaseProxy])
 ], UserController);
 exports.UserController = UserController;
-//# sourceMappingURL=user.controller.js.map

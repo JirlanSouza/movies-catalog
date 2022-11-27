@@ -58,4 +58,3 @@ EnviromentVariables = __decorate([
     __metadata("design:paramtypes", [config_1.ConfigService])
 ], EnviromentVariables);
 exports.EnviromentVariables = EnviromentVariables;
-//# sourceMappingURL=enviroment-variables.js.map

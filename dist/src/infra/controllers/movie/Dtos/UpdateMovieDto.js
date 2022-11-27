@@ -80,4 +80,3 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateMovieControllerDto.prototype, "runtimeUrl", void 0);
 exports.UpdateMovieControllerDto = UpdateMovieControllerDto;
-//# sourceMappingURL=UpdateMovieDto.js.map

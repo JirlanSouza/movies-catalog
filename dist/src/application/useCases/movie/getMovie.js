@@ -17,4 +17,3 @@ class GetMovieUseCase {
     }
 }
 exports.GetMovieUseCase = GetMovieUseCase;
-//# sourceMappingURL=getMovie.js.map

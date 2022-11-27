@@ -22,4 +22,3 @@ ControllersModule = __decorate([
     })
 ], ControllersModule);
 exports.ControllersModule = ControllersModule;
-//# sourceMappingURL=controllers.module.js.map

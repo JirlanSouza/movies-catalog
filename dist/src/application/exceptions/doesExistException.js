@@ -7,4 +7,3 @@ class DoesNotExist extends Error {
     }
 }
 exports.DoesNotExist = DoesNotExist;
-//# sourceMappingURL=doesExistException.js.map

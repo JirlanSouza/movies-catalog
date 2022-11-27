@@ -53,4 +53,3 @@ MovieModel = __decorate([
     (0, typeorm_1.Entity)('movies')
 ], MovieModel);
 exports.MovieModel = MovieModel;
-//# sourceMappingURL=movie-model.js.map

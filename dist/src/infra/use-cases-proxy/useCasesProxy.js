@@ -10,4 +10,3 @@ class UseCaseProxy {
     }
 }
 exports.UseCaseProxy = UseCaseProxy;
-//# sourceMappingURL=useCasesProxy.js.map

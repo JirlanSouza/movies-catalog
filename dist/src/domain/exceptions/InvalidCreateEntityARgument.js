@@ -7,4 +7,3 @@ class InvalidCreateEntityArgumentExeption extends Error {
     }
 }
 exports.InvalidCreateEntityArgumentExeption = InvalidCreateEntityArgumentExeption;
-//# sourceMappingURL=InvalidCreateEntityARgument.js.map
