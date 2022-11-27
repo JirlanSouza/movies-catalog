@@ -44,4 +44,12 @@ export class EnviromentVariables {
   get redisTtl() {
     return parseInt(this.configService.get<string>('REDIS_TTL'));
   }
+
+  get jwtExpiresTime() {
+    return parseInt(this.configService.get<string>('JWT_EXPIRES_TIME'));
+  }
+
+  get jwtSecret() {
+    return this.configService.get<string>('JWT_SECRET');
+  }
 }

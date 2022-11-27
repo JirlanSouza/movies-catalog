@@ -15,7 +15,7 @@ const class_validator_1 = require("class-validator");
 class GetMovieParamsDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiProperty)({ example: 'f419874f-1b85-4f83-9643-319a09dc674c' }),
     (0, class_validator_1.IsUUID)(4),
     __metadata("design:type", String)
 ], GetMovieParamsDto.prototype, "id", void 0);

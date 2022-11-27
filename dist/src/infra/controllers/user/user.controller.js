@@ -33,8 +33,8 @@ let UserController = class UserController {
 };
 __decorate([
     (0, swagger_1.ApiResponse)({ status: 201, type: userPresenter_1.CreateUserPresenter }),
-    (0, swagger_1.ApiResponse)({ status: 400, type: exceptionPresenter_1.ExceptionPresenter }),
-    (0, swagger_1.ApiResponse)({ status: 409, type: exceptionPresenter_1.ExceptionPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: exceptionPresenter_1.BadRequestPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 409, type: exceptionPresenter_1.ConflictPresenter }),
     (0, swagger_1.ApiOperation)({ description: 'Create new user' }),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),

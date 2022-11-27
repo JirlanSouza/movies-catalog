@@ -12,4 +12,6 @@ export declare class EnviromentVariables {
     get redisPort(): number;
     get redisPassword(): string;
     get redisTtl(): number;
+    get jwtExpiresTime(): number;
+    get jwtSecret(): string;
 }

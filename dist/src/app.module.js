@@ -9,11 +9,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const controllers_module_1 = require("./infra/controllers/controllers.module");
+const jwt_adapter_module_1 = require("./infra/adapters/jwt-adapter/jwt-adapter.module");
+const use_cases_proxy_module_1 = require("./infra/use-cases-proxy/use-cases-proxy.module");
+const jwtStrategy_1 = require("./infra/common/strategies/jwtStrategy");
+const enviroment_module_1 = require("./infra/config/enviroment/enviroment.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [controllers_module_1.ControllersModule],
+        imports: [
+            enviroment_module_1.EnviromentModule,
+            jwt_adapter_module_1.JwtAdapterModule,
+            use_cases_proxy_module_1.UseCasesProxyModule.register(),
+            controllers_module_1.ControllersModule,
+        ],
+        providers: [jwtStrategy_1.JwtStrategy],
     })
 ], AppModule);
 exports.AppModule = AppModule;

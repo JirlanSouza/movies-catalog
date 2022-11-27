@@ -46,6 +46,12 @@ let EnviromentVariables = class EnviromentVariables {
     get redisTtl() {
         return parseInt(this.configService.get('REDIS_TTL'));
     }
+    get jwtExpiresTime() {
+        return parseInt(this.configService.get('JWT_EXPIRES_TIME'));
+    }
+    get jwtSecret() {
+        return this.configService.get('JWT_SECRET');
+    }
 };
 EnviromentVariables = __decorate([
     (0, common_1.Injectable)(),

@@ -1,5 +1,7 @@
 import {
   Body,
+  CacheInterceptor,
+  UseInterceptors,
   Controller,
   Delete,
   Get,
@@ -7,8 +9,15 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateMovieUseCase } from 'src/application/useCases/movie/CreateMovie';
 import { DeleteMovieUseCase } from 'src/application/useCases/movie/DeleteMovie';
 import { GetManyMoviesUseCase } from 'src/application/useCases/movie/getManyMovies';
@@ -16,7 +25,13 @@ import { GetMovieUseCase } from 'src/application/useCases/movie/getMovie';
 import { UpdateMovieUseCase } from 'src/application/useCases/movie/UpdateMovie';
 import { UseCasesProxyModule } from 'src/infra/use-cases-proxy/use-cases-proxy.module';
 import { UseCaseProxy } from 'src/infra/use-cases-proxy/useCasesProxy';
-import { ExceptionPresenter } from '../exceptionPresenter';
+import {
+  BadRequestPresenter,
+  ConflictPresenter,
+  ExceptionPresenter,
+  NotFoundPresenter,
+  UnauthorizedPresenter,
+} from '../exceptionPresenter';
 import { CreateMovieControllerDto } from './Dtos/CreateMovieDto';
 import { DeleteMovieParamsDto } from './Dtos/DeleteMovieDto';
 import { GetMovieParamsDto } from './Dtos/GetMovieDto';
@@ -29,7 +44,11 @@ import { ManyMoviesPresenter } from './presenters/ManyMoviesPresenter';
 import { MoviePresenter } from './presenters/moviePresenter';
 
 @ApiTags('movies')
+@ApiBearerAuth()
 @ApiResponse({ status: 500, type: ExceptionPresenter })
+@ApiResponse({ status: 401, type: UnauthorizedPresenter })
+@UseGuards(AuthGuard('jwt'))
+@UseInterceptors(CacheInterceptor)
 @Controller('movies')
 export class MoviesController {
   constructor(
@@ -46,8 +65,8 @@ export class MoviesController {
   ) {}
 
   @ApiResponse({ status: 201, type: MoviePresenter })
-  @ApiResponse({ status: 400, type: ExceptionPresenter })
-  @ApiResponse({ status: 409, type: ExceptionPresenter })
+  @ApiResponse({ status: 400, type: BadRequestPresenter })
+  @ApiResponse({ status: 409, type: ConflictPresenter })
   @ApiOperation({ description: 'Create new movie' })
   @Post()
   async create(
@@ -72,8 +91,8 @@ export class MoviesController {
   }
 
   @ApiResponse({ status: 200, type: MoviePresenter })
-  @ApiResponse({ status: 400, type: ExceptionPresenter })
-  @ApiResponse({ status: 404, type: ExceptionPresenter })
+  @ApiResponse({ status: 400, type: BadRequestPresenter })
+  @ApiResponse({ status: 404, type: NotFoundPresenter })
   @ApiOperation({ description: 'Get movie' })
   @Get(':id')
   async getMovie(@Param() getMovieParams: GetMovieParamsDto) {
@@ -85,8 +104,8 @@ export class MoviesController {
   }
 
   @ApiResponse({ status: 200, type: MoviePresenter })
-  @ApiResponse({ status: 400, type: ExceptionPresenter })
-  @ApiResponse({ status: 404, type: ExceptionPresenter })
+  @ApiResponse({ status: 400, type: BadRequestPresenter })
+  @ApiResponse({ status: 404, type: NotFoundPresenter })
   @ApiOperation({ description: 'Update movie' })
   @Put(':id')
   async updateMovie(
@@ -101,8 +120,8 @@ export class MoviesController {
   }
 
   @ApiResponse({ status: 200, type: DeleteMoviePresenter })
-  @ApiResponse({ status: 400, type: ExceptionPresenter })
-  @ApiResponse({ status: 404, type: ExceptionPresenter })
+  @ApiResponse({ status: 400, type: BadRequestPresenter })
+  @ApiResponse({ status: 404, type: NotFoundPresenter })
   @ApiOperation({ description: 'Get movie' })
   @Delete(':id')
   async deleteMovie(@Param() deleteMovieParams: DeleteMovieParamsDto) {

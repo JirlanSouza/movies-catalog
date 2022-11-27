@@ -5,7 +5,7 @@ export declare class MoviePresenter {
     genre: string;
     overview: string;
     company: string;
-    releseDate: string;
+    releaseDate: string;
     votesAvg: number;
     votesCount: number;
     runtimeUrl: string;

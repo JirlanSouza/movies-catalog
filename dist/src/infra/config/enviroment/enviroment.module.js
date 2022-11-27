@@ -14,7 +14,7 @@ let EnviromentModule = class EnviromentModule {
 };
 EnviromentModule = __decorate([
     (0, common_1.Module)({
-        imports: [config_1.ConfigModule.forRoot({ isGlobal: true })],
+        imports: [config_1.ConfigModule.forRoot({ isGlobal: true, cache: true })],
         providers: [enviroment_variables_1.EnviromentVariables],
         exports: [enviroment_variables_1.EnviromentVariables],
     })

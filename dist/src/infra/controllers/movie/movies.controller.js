@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MoviesController = void 0;
 const common_1 = require("@nestjs/common");
+const passport_1 = require("@nestjs/passport");
 const swagger_1 = require("@nestjs/swagger");
 const use_cases_proxy_module_1 = require("../../use-cases-proxy/use-cases-proxy.module");
 const useCasesProxy_1 = require("../../use-cases-proxy/useCasesProxy");
@@ -64,8 +65,8 @@ let MoviesController = class MoviesController {
 };
 __decorate([
     (0, swagger_1.ApiResponse)({ status: 201, type: moviePresenter_1.MoviePresenter }),
-    (0, swagger_1.ApiResponse)({ status: 400, type: exceptionPresenter_1.ExceptionPresenter }),
-    (0, swagger_1.ApiResponse)({ status: 409, type: exceptionPresenter_1.ExceptionPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: exceptionPresenter_1.BadRequestPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 409, type: exceptionPresenter_1.ConflictPresenter }),
     (0, swagger_1.ApiOperation)({ description: 'Create new movie' }),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
@@ -83,8 +84,8 @@ __decorate([
 ], MoviesController.prototype, "getManyMovies", null);
 __decorate([
     (0, swagger_1.ApiResponse)({ status: 200, type: moviePresenter_1.MoviePresenter }),
-    (0, swagger_1.ApiResponse)({ status: 400, type: exceptionPresenter_1.ExceptionPresenter }),
-    (0, swagger_1.ApiResponse)({ status: 404, type: exceptionPresenter_1.ExceptionPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: exceptionPresenter_1.BadRequestPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 404, type: exceptionPresenter_1.NotFoundPresenter }),
     (0, swagger_1.ApiOperation)({ description: 'Get movie' }),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)()),
@@ -94,8 +95,8 @@ __decorate([
 ], MoviesController.prototype, "getMovie", null);
 __decorate([
     (0, swagger_1.ApiResponse)({ status: 200, type: moviePresenter_1.MoviePresenter }),
-    (0, swagger_1.ApiResponse)({ status: 400, type: exceptionPresenter_1.ExceptionPresenter }),
-    (0, swagger_1.ApiResponse)({ status: 404, type: exceptionPresenter_1.ExceptionPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: exceptionPresenter_1.BadRequestPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 404, type: exceptionPresenter_1.NotFoundPresenter }),
     (0, swagger_1.ApiOperation)({ description: 'Update movie' }),
     (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)()),
@@ -107,8 +108,8 @@ __decorate([
 ], MoviesController.prototype, "updateMovie", null);
 __decorate([
     (0, swagger_1.ApiResponse)({ status: 200, type: DeleteMoviePresenter_1.DeleteMoviePresenter }),
-    (0, swagger_1.ApiResponse)({ status: 400, type: exceptionPresenter_1.ExceptionPresenter }),
-    (0, swagger_1.ApiResponse)({ status: 404, type: exceptionPresenter_1.ExceptionPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: exceptionPresenter_1.BadRequestPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 404, type: exceptionPresenter_1.NotFoundPresenter }),
     (0, swagger_1.ApiOperation)({ description: 'Get movie' }),
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)()),
@@ -118,7 +119,11 @@ __decorate([
 ], MoviesController.prototype, "deleteMovie", null);
 MoviesController = __decorate([
     (0, swagger_1.ApiTags)('movies'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiResponse)({ status: 500, type: exceptionPresenter_1.ExceptionPresenter }),
+    (0, swagger_1.ApiResponse)({ status: 401, type: exceptionPresenter_1.UnauthorizedPresenter }),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.UseInterceptors)(common_1.CacheInterceptor),
     (0, common_1.Controller)('movies'),
     __param(0, (0, common_1.Inject)(use_cases_proxy_module_1.UseCasesProxyModule.proxy.CREATE_MOVIE_USECASE)),
     __param(1, (0, common_1.Inject)(use_cases_proxy_module_1.UseCasesProxyModule.proxy.GET_MANY_MOVIES_USECASE)),

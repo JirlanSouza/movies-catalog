@@ -9,6 +9,8 @@ var UseCasesProxyModule_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UseCasesProxyModule = void 0;
 const common_1 = require("@nestjs/common");
+const ValidateTokenPayload_1 = require("../../application/useCases/auth/ValidateTokenPayload");
+const SignIn_1 = require("../../application/useCases/auth/SignIn");
 const CreateMovie_1 = require("../../application/useCases/movie/CreateMovie");
 const DeleteMovie_1 = require("../../application/useCases/movie/DeleteMovie");
 const getManyMovies_1 = require("../../application/useCases/movie/getManyMovies");
@@ -17,6 +19,8 @@ const UpdateMovie_1 = require("../../application/useCases/movie/UpdateMovie");
 const CreateUser_1 = require("../../application/useCases/user/CreateUser");
 const bcrypt_hasher_module_1 = require("../adapters/bcrypt-hasher/bcrypt-hasher.module");
 const bcrypt_hasher_service_1 = require("../adapters/bcrypt-hasher/bcrypt-hasher.service");
+const jwt_adapter_module_1 = require("../adapters/jwt-adapter/jwt-adapter.module");
+const jwt_adapter_service_1 = require("../adapters/jwt-adapter/jwt-adapter.service");
 const logger_module_1 = require("../logger/logger.module");
 const logger_service_1 = require("../logger/logger.service");
 const repositories_module_1 = require("../repositories/repositories.module");
@@ -58,6 +62,21 @@ let UseCasesProxyModule = UseCasesProxyModule_1 = class UseCasesProxyModule {
                     provide: UseCasesProxyModule_1.proxy.DELETE_MOVIE_USECASE,
                     useFactory: (logger, moviesRepository) => new useCasesProxy_1.UseCaseProxy(new DeleteMovie_1.DeleteMovieUseCase(moviesRepository, logger)),
                 },
+                {
+                    inject: [
+                        typeorm_user_repository_1.TypeormUserRepository,
+                        bcrypt_hasher_service_1.BcryptHasherService,
+                        jwt_adapter_service_1.JwtAdapterService,
+                        logger_service_1.LoggerService,
+                    ],
+                    provide: UseCasesProxyModule_1.proxy.SIGNIN_USECASE,
+                    useFactory: (userRepository, hasher, jwt, logger) => new useCasesProxy_1.UseCaseProxy(new SignIn_1.SignInUseCase(userRepository, hasher, jwt, logger)),
+                },
+                {
+                    inject: [typeorm_user_repository_1.TypeormUserRepository],
+                    provide: UseCasesProxyModule_1.proxy.VALIDATE_TOKEN_PAYLOAD_USECASE,
+                    useFactory: (userRepository) => new useCasesProxy_1.UseCaseProxy(new ValidateTokenPayload_1.ValidateTokenPayloadUseCase(userRepository)),
+                },
             ],
             exports: Object.values(UseCasesProxyModule_1.proxy),
         };
@@ -70,10 +89,17 @@ UseCasesProxyModule.proxy = {
     GET_MOVIE_USECASE: 'GetMovieUseCaseProxy',
     UPDATE_MOVIE_USECASE: 'UpdateMovieUseCaseProxy',
     DELETE_MOVIE_USECASE: 'DeleteMovieUseCaseProxy',
+    SIGNIN_USECASE: 'SignInUseCaseProxy',
+    VALIDATE_TOKEN_PAYLOAD_USECASE: 'ValidateTokenPayloaduseCaseProxy',
 };
 UseCasesProxyModule = UseCasesProxyModule_1 = __decorate([
     (0, common_1.Module)({
-        imports: [logger_module_1.LoggerModule, repositories_module_1.RepositoriesModule, bcrypt_hasher_module_1.BcryptHasherModule],
+        imports: [
+            logger_module_1.LoggerModule,
+            repositories_module_1.RepositoriesModule,
+            bcrypt_hasher_module_1.BcryptHasherModule,
+            jwt_adapter_module_1.JwtAdapterModule,
+        ],
     })
 ], UseCasesProxyModule);
 exports.UseCasesProxyModule = UseCasesProxyModule;

@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { EnviromentVariables } from './enviroment-variables';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true })],
+  imports: [ConfigModule.forRoot({ isGlobal: true, cache: true })],
   providers: [EnviromentVariables],
   exports: [EnviromentVariables],
 })

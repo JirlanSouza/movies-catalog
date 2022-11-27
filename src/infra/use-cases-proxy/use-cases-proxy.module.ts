@@ -1,4 +1,6 @@
 import { Module, DynamicModule } from '@nestjs/common';
+import { ValidateTokenPayloadUseCase } from 'src/application/useCases/auth/ValidateTokenPayload';
+import { SignInUseCase } from 'src/application/useCases/auth/SignIn';
 import { CreateMovieUseCase } from 'src/application/useCases/movie/CreateMovie';
 import { DeleteMovieUseCase } from 'src/application/useCases/movie/DeleteMovie';
 import { GetManyMoviesUseCase } from 'src/application/useCases/movie/getManyMovies';
@@ -7,6 +9,9 @@ import { UpdateMovieUseCase } from 'src/application/useCases/movie/UpdateMovie';
 import { CreateUserUseCase } from 'src/application/useCases/user/CreateUser';
 import { BcryptHasherModule } from '../adapters/bcrypt-hasher/bcrypt-hasher.module';
 import { BcryptHasherService } from '../adapters/bcrypt-hasher/bcrypt-hasher.service';
+import { JwtAdapterModule } from '../adapters/jwt-adapter/jwt-adapter.module';
+import { JwtAdapterService } from '../adapters/jwt-adapter/jwt-adapter.service';
+import { EnviromentVariables } from '../config/enviroment/enviroment-variables';
 import { LoggerModule } from '../logger/logger.module';
 import { LoggerService } from '../logger/logger.service';
 import { RepositoriesModule } from '../repositories/repositories.module';
@@ -15,7 +20,12 @@ import { TypeormUserRepository } from '../repositories/typeorm-user-repository/t
 import { UseCaseProxy } from './useCasesProxy';
 
 @Module({
-  imports: [LoggerModule, RepositoriesModule, BcryptHasherModule],
+  imports: [
+    LoggerModule,
+    RepositoriesModule,
+    BcryptHasherModule,
+    JwtAdapterModule,
+  ],
 })
 export class UseCasesProxyModule {
   static proxy = {
@@ -25,6 +35,8 @@ export class UseCasesProxyModule {
     GET_MOVIE_USECASE: 'GetMovieUseCaseProxy',
     UPDATE_MOVIE_USECASE: 'UpdateMovieUseCaseProxy',
     DELETE_MOVIE_USECASE: 'DeleteMovieUseCaseProxy',
+    SIGNIN_USECASE: 'SignInUseCaseProxy',
+    VALIDATE_TOKEN_PAYLOAD_USECASE: 'ValidateTokenPayloaduseCaseProxy',
   };
 
   static register(): DynamicModule {
@@ -81,6 +93,30 @@ export class UseCasesProxyModule {
             moviesRepository: TypeormMoviesReoisitory,
           ) =>
             new UseCaseProxy(new DeleteMovieUseCase(moviesRepository, logger)),
+        },
+        {
+          inject: [
+            TypeormUserRepository,
+            BcryptHasherService,
+            JwtAdapterService,
+            LoggerService,
+          ],
+          provide: UseCasesProxyModule.proxy.SIGNIN_USECASE,
+          useFactory: (
+            userRepository: TypeormUserRepository,
+            hasher: BcryptHasherService,
+            jwt: JwtAdapterService,
+            logger: LoggerService,
+          ) =>
+            new UseCaseProxy(
+              new SignInUseCase(userRepository, hasher, jwt, logger),
+            ),
+        },
+        {
+          inject: [TypeormUserRepository],
+          provide: UseCasesProxyModule.proxy.VALIDATE_TOKEN_PAYLOAD_USECASE,
+          useFactory: (userRepository: TypeormUserRepository) =>
+            new UseCaseProxy(new ValidateTokenPayloadUseCase(userRepository)),
         },
       ],
       exports: Object.values(UseCasesProxyModule.proxy),
